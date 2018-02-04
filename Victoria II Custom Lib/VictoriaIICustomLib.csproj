@@ -46,11 +46,18 @@
     <Compile Include="FileLoader\GameFileLoader.cs" />
     <Compile Include="FileLoader\KeyValueNode.cs" />
     <Compile Include="GlobalConfig.cs" />
+    <Compile Include="Issues\EconomicReform.cs" />
     <Compile Include="Issues\IssueLoader.cs" />
+    <Compile Include="Issues\MilitaryReform.cs" />
+    <Compile Include="Issues\PartyIssues\CitizenshipPolicy.cs" />
+    <Compile Include="Issues\PartyIssues\EconomicPolicy.cs" />
+    <Compile Include="Issues\PartyIssues\ReligousPolicy.cs" />
+    <Compile Include="Issues\PartyIssues\TradePolicy.cs" />
+    <Compile Include="Issues\PartyIssues\WarPolicy.cs" />
+    <Compile Include="Issues\PoliticalReform.cs" />
+    <Compile Include="Issues\SocialReform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Issues\PartyIssues\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
