@@ -43,8 +43,14 @@
     <Compile Include="FileLoader\FileParser.cs" />
     <Compile Include="FileLoader\FileParsingState.cs" />
     <Compile Include="FileLoader\FileParsingStateEnum.cs" />
+    <Compile Include="FileLoader\GameFileLoader.cs" />
     <Compile Include="FileLoader\KeyValueNode.cs" />
+    <Compile Include="GlobalConfig.cs" />
+    <Compile Include="Issues\IssueLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Issues\PartyIssues\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
