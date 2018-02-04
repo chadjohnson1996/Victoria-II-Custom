@@ -37,6 +37,7 @@ namespace Victoria_II_Custom_Lib
                 var data = await sr.ReadToEndAsync();
                 var root = new KeyValueNode();
                 root.Key = "Root";
+                root.Children = new List<KeyValueNode>();
                 data = RemoveComments(data);
                 return ParseHelper(root, data, 0, data.Length);
             }
@@ -77,13 +78,13 @@ namespace Victoria_II_Custom_Lib
                 if (nextNode.IsLeaf)
                 {
                     parent.Children.Add(nextNode);
-                    i++;
-                    continue;
                 }
-
-                var toAdd = ParseHelper(nextNode, data, currentNode.ChildrenStartIndex,
+                else
+                {
+                    var toAdd = ParseHelper(nextNode, data, currentNode.ChildrenStartIndex,
                     currentNode.ChildrenIndexCount);
-                parent.Children.Add(toAdd);
+                    parent.Children.Add(toAdd);
+                }
 
                 currentNode = new FileParsingState();
                 i++;
@@ -129,6 +130,7 @@ namespace Victoria_II_Custom_Lib
             if (current == '=')
             {
                 toProcess.State = FileParsingStateEnum.ParseValue;
+                return;
             }
 
             toProcess.KeyBuilder.Append(current);
