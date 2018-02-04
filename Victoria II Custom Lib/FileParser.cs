@@ -10,6 +10,22 @@ namespace Victoria_II_Custom_Lib
     public class FileParser
     {
         /// <summary>
+        /// the parsing functions
+        /// </summary>
+        private Dictionary<FileParsingStateEnum, Action<FileParsingState, char, int>> Parsers { get; }
+
+
+        public FileParser()
+        {
+            Parsers = new Dictionary<FileParsingStateEnum, Action<FileParsingState, char, int>>();
+            Parsers.Add(FileParsingStateEnum.Initial, ProcessInitialState);
+            Parsers.Add(FileParsingStateEnum.ParsingKey, ProcessParsingKey);
+            Parsers.Add(FileParsingStateEnum.ParseValue, ProcessParseValue);
+            Parsers.Add(FileParsingStateEnum.ParsingEscapedLeafValue, ProcessParsingEscapedLeafValue);
+            Parsers.Add(FileParsingStateEnum.ParsingLeafValue, ProcessParsingLeafValue);
+            Parsers.Add(FileParsingStateEnum.ParsingNestedValue, ProcessParsingNestedValue);
+        }
+        /// <summary>
         /// parses the key value tree of file specified at the path
         /// </summary>
         /// <param name="path">the path to parse</param>
@@ -44,20 +60,10 @@ namespace Victoria_II_Custom_Lib
         {
             var i = startIndex;
 
-            FileParsingState currentNode = null;
+            var currentNode = new FileParsingState();
             while (i < startIndex + count)
             {
                 var currentChar = data[i];
-                if (char.IsWhiteSpace(currentChar) && currentNode == null)
-                {
-                    i++;
-                    continue;
-                }
-
-                if (currentNode == null)
-                {
-                    currentNode = new FileParsingState();
-                }
 
                 ProcessState(currentNode, currentChar, i);
 
@@ -67,14 +73,19 @@ namespace Victoria_II_Custom_Lib
                     continue;
                 }
 
-                if (currentNode.Current.IsLeaf)
+                var nextNode = currentNode.BuildNode();
+                if (nextNode.IsLeaf)
                 {
-                    parent.Children.Add(currentNode.Current);
+                    parent.Children.Add(nextNode);
+                    i++;
+                    continue;
                 }
 
-                var toAdd = ParseHelper(currentNode.Current, data, currentNode.ChildrenStartIndex,
+                var toAdd = ParseHelper(nextNode, data, currentNode.ChildrenStartIndex,
                     currentNode.ChildrenIndexCount);
                 parent.Children.Add(toAdd);
+
+                currentNode = new FileParsingState();
                 i++;
             }
 
@@ -89,7 +100,127 @@ namespace Victoria_II_Custom_Lib
         /// <param name="index">the index</param>
         private void ProcessState(FileParsingState toProcess, char current, int index)
         {
+            Parsers[toProcess.State](toProcess, current, index);
+        }
 
+        /// <summary>
+        /// processes the initial state
+        /// </summary>
+        /// <param name="toProcess">the state to process</param>
+        /// <param name="current">the current char</param>
+        /// <param name="index">the index</param>
+        private void ProcessInitialState(FileParsingState toProcess, char current, int index)
+        {
+            if (!char.IsWhiteSpace(current))
+            {
+                toProcess.KeyBuilder.Append(current);
+                toProcess.State = FileParsingStateEnum.ParsingKey;
+            }
+        }
+
+        /// <summary>
+        /// processes parsing the key
+        /// </summary>
+        /// <param name="toProcess">the state to process</param>
+        /// <param name="current">the current char</param>
+        /// <param name="index">the index</param>
+        private void ProcessParsingKey(FileParsingState toProcess, char current, int index)
+        {
+            if (current == '=')
+            {
+                toProcess.State = FileParsingStateEnum.ParseValue;
+            }
+
+            toProcess.KeyBuilder.Append(current);
+        }
+
+        /// <summary>
+        /// processes the parse value state
+        /// </summary>
+        /// <param name="toProcess">the state to process</param>
+        /// <param name="current"></param>
+        /// <param name="index"></param>
+        private void ProcessParseValue(FileParsingState toProcess, char current, int index)
+        {
+            if (char.IsWhiteSpace(current))
+            {
+                return;
+            }
+
+            switch (current)
+            {
+                case '"':
+                    toProcess.State = FileParsingStateEnum.ParsingEscapedLeafValue;
+                    break;
+                case '{':
+                    toProcess.State = FileParsingStateEnum.ParsingNestedValue;
+                    toProcess.ChildrenStartIndex = index + 1;
+                    toProcess.BracketCount++;
+                    break;
+                default:
+                    toProcess.State = FileParsingStateEnum.ParsingLeafValue;
+                    toProcess.ValueBuilder.Append(current);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// processes parsing the escaped leaf value
+        /// </summary>
+        /// <param name="toProcess">the state to process</param>
+        /// <param name="current"></param>
+        /// <param name="index"></param>
+        private void ProcessParsingEscapedLeafValue(FileParsingState toProcess, char current, int index)
+        {
+            if (current == '"')
+            {
+                toProcess.State = FileParsingStateEnum.Finished;
+                return;
+            }
+
+            toProcess.ValueBuilder.Append(current);
+        }
+
+        /// <summary>
+        /// processes parsing the leaf value
+        /// </summary>
+        /// <param name="toProcess">the state to process</param>
+        /// <param name="current"></param>
+        /// <param name="index"></param>
+        private void ProcessParsingLeafValue(FileParsingState toProcess, char current, int index)
+        {
+            if (char.IsWhiteSpace(current))
+            {
+                toProcess.State = FileParsingStateEnum.Finished;
+                return;
+            }
+
+            toProcess.ValueBuilder.Append(current);
+        }
+
+        /// <summary>
+        /// processes parsing the nested leaf value
+        /// </summary>
+        /// <param name="toProcess"></param>
+        /// <param name="current"></param>
+        /// <param name="index"></param>
+        private void ProcessParsingNestedValue(FileParsingState toProcess, char current, int index)
+        {
+            if (current == '{')
+            {
+                toProcess.BracketCount++;
+            }
+
+            if (current == '}')
+            {
+                toProcess.BracketCount--;
+            }
+
+            if (toProcess.BracketCount == 0)
+            {
+                toProcess.State = FileParsingStateEnum.Finished;
+                toProcess.ChildrenIndexCount = index - toProcess.ChildrenStartIndex;
+            }
         }
     }
 }

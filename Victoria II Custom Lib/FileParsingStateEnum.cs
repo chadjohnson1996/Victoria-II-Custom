@@ -10,7 +10,10 @@ namespace Victoria_II_Custom_Lib
     {
         Initial,
         ParsingKey,
-        ParsingValue,
+        ParseValue,
+        ParsingLeafValue,
+        ParsingEscapedLeafValue,
+        ParsingNestedValue,
         Finished
     }
 }

@@ -8,7 +8,15 @@ namespace Victoria_II_Custom_Lib
 {
     public class FileParsingState
     {
-        public KeyValueNode Current { get; set; }
+        /// <summary>
+        /// the key builder
+        /// </summary>
+        public StringBuilder KeyBuilder { get;}
+
+        /// <summary>
+        /// the value builder
+        /// </summary>
+        public StringBuilder ValueBuilder { get; }
         public FileParsingStateEnum State { get; set; }
 
         /// <summary>
@@ -20,10 +28,32 @@ namespace Victoria_II_Custom_Lib
         /// the count of the children index
         /// </summary>
         public int ChildrenIndexCount { get; set; }
+
+        /// <summary>
+        /// the bracket count
+        /// </summary>
+        public int BracketCount { get; set; }
         public FileParsingState()
         {
-            Current = new KeyValueNode();
             State = FileParsingStateEnum.Initial;
+            KeyBuilder = new StringBuilder();
+            ValueBuilder = new StringBuilder();
+        }
+
+        public KeyValueNode BuildNode()
+        {
+            var toReturn = new KeyValueNode();
+            toReturn.Key = KeyBuilder.ToString();
+            if (ValueBuilder.Length > 0)
+            {
+                toReturn.Value = ValueBuilder.ToString();
+            }
+            else
+            {
+                toReturn.Children = new List<KeyValueNode>();
+            }
+
+            return toReturn;
         }
     }
 }
