@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace Victoria_II_Custom_Lib
             Parsers.Add(FileParsingStateEnum.ParsingEscapedLeafValue, ProcessParsingEscapedLeafValue);
             Parsers.Add(FileParsingStateEnum.ParsingLeafValue, ProcessParsingLeafValue);
             Parsers.Add(FileParsingStateEnum.ParsingNestedValue, ProcessParsingNestedValue);
+            Parsers.Add(FileParsingStateEnum.Comment, ProcessComment);
         }
         /// <summary>
         /// parses the key value tree of file specified at the path
@@ -39,7 +41,8 @@ namespace Victoria_II_Custom_Lib
                 root.Key = "Root";
                 root.Children = new List<KeyValueNode>();
                 data = RemoveComments(data);
-                return ParseHelper(root, data, 0, data.Length);
+                var toReturn = ParseHelper(root, data, 0, data.Length);
+                return toReturn;
             }
         }
 
@@ -112,6 +115,11 @@ namespace Victoria_II_Custom_Lib
         /// <param name="index">the index</param>
         private void ProcessInitialState(FileParsingState toProcess, char current, int index)
         {
+            if (PrepComment(toProcess, current))
+            {
+                return;
+            }
+
             if (!char.IsWhiteSpace(current))
             {
                 toProcess.KeyBuilder.Append(current);
@@ -144,6 +152,10 @@ namespace Victoria_II_Custom_Lib
         /// <param name="index"></param>
         private void ProcessParseValue(FileParsingState toProcess, char current, int index)
         {
+            if (PrepComment(toProcess, current))
+            {
+                return;
+            }
             if (char.IsWhiteSpace(current))
             {
                 return;
@@ -208,6 +220,10 @@ namespace Victoria_II_Custom_Lib
         /// <param name="index"></param>
         private void ProcessParsingNestedValue(FileParsingState toProcess, char current, int index)
         {
+            if(PrepComment(toProcess, current))
+            {
+                return;
+            }
             if (current == '{')
             {
                 toProcess.BracketCount++;
@@ -222,6 +238,37 @@ namespace Victoria_II_Custom_Lib
             {
                 toProcess.State = FileParsingStateEnum.Finished;
                 toProcess.ChildrenIndexCount = index - toProcess.ChildrenStartIndex;
+            }
+        }
+
+        /// <summary>
+        /// preps a comment if applicable
+        /// </summary>
+        /// <param name="toProcess"></param>
+        /// <param name="current"></param>
+        /// <returns>true if the character starts a comment and toProcess was successfully preped, false otherwise</returns>
+        private bool PrepComment(FileParsingState toProcess, char current)
+        {
+            if(current != '#')
+            {
+                return false;
+            }
+
+            toProcess.PreviousState = toProcess.State;
+            toProcess.State = FileParsingStateEnum.Comment;
+            return true;
+        }
+        /// <summary>
+        /// processes a comment
+        /// </summary>
+        /// <param name="toProcess"></param>
+        /// <param name="current"></param>
+        /// <param name="index"></param>
+        private void ProcessComment(FileParsingState toProcess, char current, int index)
+        {
+            if(current == '\n' || current == '\r')
+            {
+                toProcess.State = toProcess.PreviousState;
             }
         }
     }

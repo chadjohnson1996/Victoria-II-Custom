@@ -17,6 +17,11 @@ namespace Victoria_II_Custom_Lib
         /// the value builder
         /// </summary>
         public StringBuilder ValueBuilder { get; }
+
+        /// <summary>
+        /// the previous state, used for comments
+        /// </summary>
+        public FileParsingStateEnum PreviousState { get; set; }
         public FileParsingStateEnum State { get; set; }
 
         /// <summary>

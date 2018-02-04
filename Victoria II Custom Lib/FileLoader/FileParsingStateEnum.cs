@@ -14,6 +14,7 @@ namespace Victoria_II_Custom_Lib
         ParsingLeafValue,
         ParsingEscapedLeafValue,
         ParsingNestedValue,
-        Finished
+        Finished,
+        Comment
     }
 }
