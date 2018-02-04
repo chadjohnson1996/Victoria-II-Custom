@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Victoria II Custom", "Victoria II Custom\Victoria II Custom.csproj", "{7E6C565F-3B24-45CC-AE37-FE3CA1C884A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VictoriaIICustom", "Victoria II Custom\VictoriaIICustom.csproj", "{7E6C565F-3B24-45CC-AE37-FE3CA1C884A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Victoria II Custom Lib", "Victoria II Custom Lib\Victoria II Custom Lib.csproj", "{C41785D0-AD6C-4269-8C05-836D8CD9DEDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VictoriaIICustomLib", "Victoria II Custom Lib\VictoriaIICustomLib.csproj", "{C41785D0-AD6C-4269-8C05-836D8CD9DEDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

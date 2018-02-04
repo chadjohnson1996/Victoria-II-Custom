@@ -49,9 +49,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Victoria II Custom Lib\Victoria II Custom Lib.csproj">
+    <ProjectReference Include="..\Victoria II Custom Lib\VictoriaIICustomLib.csproj">
       <Project>{c41785d0-ad6c-4269-8c05-836d8cd9dedf}</Project>
-      <Name>Victoria II Custom Lib</Name>
+      <Name>VictoriaIICustomLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
