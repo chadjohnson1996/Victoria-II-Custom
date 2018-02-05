@@ -18,7 +18,7 @@ namespace Victoria_II_Custom
         {
             var testPath =
                 "C:\\Users\\cjohnson\\Documents\\Paradox Interactive\\Victoria II\\save games\\Spain1844_07_07.v2";
-            testPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Victoria 2\\common\\pop_types.txt";
+            //testPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Victoria 2\\common\\pop_types.txt";
             var fileParser = new FileParser();
             var test = await fileParser.Parse(testPath);
             var temp = 5;

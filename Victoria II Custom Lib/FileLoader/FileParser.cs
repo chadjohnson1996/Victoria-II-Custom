@@ -37,19 +37,13 @@ namespace Victoria_II_Custom_Lib
             using(var sr = new StreamReader(File.OpenRead(path)))
             {
                 var data = await sr.ReadToEndAsync();
+                Console.WriteLine(data.Length);
                 var root = new KeyValueNode();
                 root.Key = "Root";
                 root.Children = new List<KeyValueNode>();
-                data = RemoveComments(data);
                 var toReturn = ParseHelper(root, data, 0, data.Length);
                 return toReturn;
             }
-        }
-
-        private string RemoveComments(string data)
-        {
-            //TODO: implement
-            return data;
         }
 
         /// <summary>
