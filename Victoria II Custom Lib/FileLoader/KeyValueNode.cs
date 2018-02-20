@@ -27,5 +27,11 @@ namespace Victoria_II_Custom_Lib
         /// whether or not the node is a leaf
         /// </summary>
         public bool IsLeaf => Value != null;
+
+        public KeyValueNode this[string i]
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
     }
 }
