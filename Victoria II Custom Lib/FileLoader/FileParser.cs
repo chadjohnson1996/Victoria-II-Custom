@@ -40,7 +40,7 @@ namespace Victoria_II_Custom_Lib
                 Console.WriteLine(data.Length);
                 var root = new KeyValueNode();
                 root.Key = "Root";
-                root.Children = new List<KeyValueNode>();
+                root.Children = new Dictionary<string, KeyValueNode>();
                 var toReturn = ParseHelper(root, data, 0, data.Length);
                 return toReturn;
             }
@@ -74,13 +74,13 @@ namespace Victoria_II_Custom_Lib
                 var nextNode = currentNode.BuildNode();
                 if (nextNode.IsLeaf)
                 {
-                    parent.Children.Add(nextNode);
+                    parent.Children[nextNode.Key] = nextNode;
                 }
                 else
                 {
                     var toAdd = ParseHelper(nextNode, data, currentNode.ChildrenStartIndex,
                     currentNode.ChildrenIndexCount);
-                    parent.Children.Add(toAdd);
+                    parent.Children[toAdd.Key] = toAdd;
                 }
 
                 currentNode = new FileParsingState();
