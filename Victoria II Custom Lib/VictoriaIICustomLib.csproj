@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="FileLoader\FileParser.cs" />
     <Compile Include="FileLoader\FileParsingState.cs" />
     <Compile Include="FileLoader\FileParsingStateEnum.cs" />
@@ -47,6 +48,7 @@
     <Compile Include="FileLoader\KeyValueNode.cs" />
     <Compile Include="General\LocalizableObject.cs" />
     <Compile Include="GlobalConfig.cs" />
+    <Compile Include="Goods\Good.cs" />
     <Compile Include="Issues\EconomicReform.cs" />
     <Compile Include="Issues\IssueConstants.cs" />
     <Compile Include="Issues\IssueLoader.cs" />
@@ -59,6 +61,10 @@
     <Compile Include="Issues\PoliticalReform.cs" />
     <Compile Include="Issues\SocialReform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Units\LandUnit.cs" />
+    <Compile Include="Units\NavalUnit.cs" />
+    <Compile Include="Units\Unit.cs" />
+    <Compile Include="Units\UnitTypeEnum.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
