@@ -23,12 +23,20 @@ namespace Victoria_II_Custom_Lib.FileLoader
         /// the folder name
         /// </summary>
         public string FolderName { get; }
+        
+        /// <summary>
+        /// the root depth that we care about in file
+        /// </summary>
+        public int RootDepth { get; }
+
         /// <summary>
         /// the game folder loader
         /// </summary>
         /// <param name="folderName">the folder name</param>
-        public GameFolderLoader(string folderName)
+        /// <param name="rootDepth">the root depth that we care about</param>
+        public GameFolderLoader(string folderName, int rootDepth = 0)
         {
+            RootDepth = rootDepth;
             FolderName = folderName;
         }
 
@@ -56,6 +64,14 @@ namespace Victoria_II_Custom_Lib.FileLoader
                 {
                     var loader = new GameFileLoader(file.FullName);
                     var toAdd = await loader.Load();
+
+                    var concernedWith = toAdd.Children.Values.ToList();
+                    var recurseTo = RootDepth;
+                    while (recurseTo < 0)
+                    {
+                        concernedWith = concernedWith.SelectMany(x => x.Children.Values).ToList();
+                        recurseTo--;
+                    }
                     foreach (var value in toAdd.Children.FirstOrDefault().Value.Children)
                     {
                         result[value.Key] = value.Value;
