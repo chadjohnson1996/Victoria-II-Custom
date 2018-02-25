@@ -27,15 +27,17 @@ namespace Victoria_II_Custom_Lib.FileLoader
         /// </summary>
         public bool UseNameAsKey { get; }
 
+        public Func<FileInfo, string> KeyProvider { get; }
+
         /// <summary>
         /// loads file at the relative path
         /// </summary>
         /// <param name="relativePath">the relative path to load</param>
-        /// <param name="useNameAsKey">whether it should use the name as the key</param>
-        public GameFileLoader(string relativePath,  bool useNameAsKey = false)
+        /// <param name="keyProvider">the key provider</param>
+        public GameFileLoader(string relativePath,  Func<FileInfo, string> keyProvider = null)
         {
             RelativePath = relativePath;
-            UseNameAsKey = useNameAsKey;
+            KeyProvider = keyProvider;
         }
 
         public async Task<KeyValueNode> Load()
@@ -55,11 +57,10 @@ namespace Victoria_II_Custom_Lib.FileLoader
                 var path = Path.Combine(GlobalConfig.RootDirectory, RelativePath);
                 var toReturn = await new FileParser().Parse(path);
 
-                if (UseNameAsKey)
+                if (KeyProvider != null)
                 {
                     var fileInfo = new FileInfo(path);
-                    var name = fileInfo.Name;
-                    toReturn.Key = name.Substring(0, name.Length - fileInfo.Extension.Length - 1);
+                    toReturn.Key = KeyProvider(fileInfo);
                 }
                 Cache = toReturn;
                 return toReturn;

@@ -30,21 +30,21 @@ namespace Victoria_II_Custom_Lib.FileLoader
         public int RootDepth { get; }
 
         /// <summary>
-        /// whether it should use the name as the key
+        /// the key provider
         /// </summary>
-        public bool UseNameAsKey { get; }
+        public Func<FileInfo, string> KeyProvider { get; }
 
         /// <summary>
         /// the game folder loader
         /// </summary>
         /// <param name="folderName">the folder name</param>
         /// <param name="rootDepth">the root depth that we care about</param>
-        /// <param name="useNameAsKey">whether it should use the name as the key</param>
-        public GameFolderLoader(string folderName, int rootDepth = 1, bool useNameAsKey = false)
+        /// <param name="keyProvider">the key provider</param>
+        public GameFolderLoader(string folderName, int rootDepth = 1, Func<FileInfo, string> keyProvider = null) 
         {
             RootDepth = rootDepth;
             FolderName = folderName;
-            UseNameAsKey = useNameAsKey;
+            KeyProvider = keyProvider;
 
         }
 
@@ -69,7 +69,7 @@ namespace Victoria_II_Custom_Lib.FileLoader
 
                 foreach (var file in dir.GetFiles())
                 {
-                    var loader = new GameFileLoader(file.FullName, UseNameAsKey);
+                    var loader = new GameFileLoader(file.FullName, KeyProvider);
                     var toAdd = await loader.Load();
 
                     var concernedWith = new List<KeyValueNode>{toAdd};

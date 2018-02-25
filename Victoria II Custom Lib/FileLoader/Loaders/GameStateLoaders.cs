@@ -36,7 +36,12 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
         /// <summary>
         /// the pop loader
         /// </summary>
-        public GameFolderLoader PopLoader { get; } = new GameFolderLoader("poptypes", 0, true);
+        public GameFolderLoader PopLoader { get; } = new GameFolderLoader("poptypes", 0, x =>
+        {
+            var name = x.Name;
+            var extension = x.Extension;
+            return name.Substring(0, name.Length - extension.Length - 1);
+        });
 
         /// <summary>
         /// the unit loader
