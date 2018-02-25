@@ -30,14 +30,22 @@ namespace Victoria_II_Custom_Lib.FileLoader
         public int RootDepth { get; }
 
         /// <summary>
+        /// whether it should use the name as the key
+        /// </summary>
+        public bool UseNameAsKey { get; }
+
+        /// <summary>
         /// the game folder loader
         /// </summary>
         /// <param name="folderName">the folder name</param>
         /// <param name="rootDepth">the root depth that we care about</param>
-        public GameFolderLoader(string folderName, int rootDepth = 0)
+        /// <param name="useNameAsKey">whether it should use the name as the key</param>
+        public GameFolderLoader(string folderName, int rootDepth = 0, bool useNameAsKey = false)
         {
             RootDepth = rootDepth;
             FolderName = folderName;
+            UseNameAsKey = useNameAsKey;
+
         }
 
         public async Task<List<KeyValueNode>> Load()
@@ -58,19 +66,16 @@ namespace Victoria_II_Custom_Lib.FileLoader
                 var path = Path.Combine(GlobalConfig.RootDirectory, FolderName);
                 var dir = new DirectoryInfo(path);
                 var result = new List<KeyValueNode>();
-                var count = 0;
+
                 foreach (var file in dir.GetFiles())
                 {
-                    var loader = new GameFileLoader(file.FullName);
+                    var loader = new GameFileLoader(file.FullName, UseNameAsKey);
                     var toAdd = await loader.Load();
 
                     var concernedWith = toAdd.ToList();
-                    count += concernedWith.Count;
+
                     var recurseTo = RootDepth;
-                    if (file.FullName.Contains("event"))
-                    {
-                        var test = 5;
-                    }
+
                     while (recurseTo > 0)
                     {
                         concernedWith = concernedWith.SelectMany(x => x.ToList()).ToList();
@@ -78,10 +83,7 @@ namespace Victoria_II_Custom_Lib.FileLoader
                     }
                     
                     result = result.Concat(concernedWith).ToList();
-                    //Console.WriteLine(result.Count);
                 }
-
-                Console.WriteLine(count);
                 Cache = result;
                 return Cache;
             }

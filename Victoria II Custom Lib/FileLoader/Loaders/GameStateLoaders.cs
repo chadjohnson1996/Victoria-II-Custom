@@ -32,13 +32,20 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
         /// added the technologies folder
         /// </summary>
         public GameFolderLoader TechnologiesLoader { get; } = new GameFolderLoader("technologies");
+
+        /// <summary>
+        /// the pop loader
+        /// </summary>
+        public GameFolderLoader PopLoader { get; } = new GameFolderLoader("poptypes", 0, true);
+
         public async Task Load()
         {
             await Task.WhenAll(IssueLoader.Load(), 
                 DecisionsLoader.Load(),
                 EventsLoader.Load(),
                 InventionsLoader.Load(),
-                TechnologiesLoader.Load()
+                TechnologiesLoader.Load(),
+                PopLoader.Load()
                 );
         }
     }

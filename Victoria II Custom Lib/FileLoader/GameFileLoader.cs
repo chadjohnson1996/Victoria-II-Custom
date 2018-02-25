@@ -23,13 +23,19 @@ namespace Victoria_II_Custom_Lib.FileLoader
         private SemaphoreSlim LoadSem { get; } = new SemaphoreSlim(1);
 
         /// <summary>
+        /// whether it should use the name as the key
+        /// </summary>
+        public bool UseNameAsKey { get; }
+
+        /// <summary>
         /// loads file at the relative path
         /// </summary>
         /// <param name="relativePath">the relative path to load</param>
-        public GameFileLoader(string relativePath)
+        /// <param name="useNameAsKey">whether it should use the name as the key</param>
+        public GameFileLoader(string relativePath,  bool useNameAsKey = false)
         {
             RelativePath = relativePath;
-            
+            UseNameAsKey = useNameAsKey;
         }
 
         public async Task<KeyValueNode> Load()
@@ -48,6 +54,13 @@ namespace Victoria_II_Custom_Lib.FileLoader
 
                 var path = Path.Combine(GlobalConfig.RootDirectory, RelativePath);
                 var toReturn = await new FileParser().Parse(path);
+
+                if (UseNameAsKey)
+                {
+                    var fileInfo = new FileInfo(path);
+                    var name = fileInfo.Name;
+                    toReturn.Key = name.Substring(0, name.Length - fileInfo.Extension.Length - 1);
+                }
                 Cache = toReturn;
                 return toReturn;
             }
