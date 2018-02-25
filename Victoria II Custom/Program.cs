@@ -17,9 +17,8 @@ namespace Victoria_II_Custom
 
         static async Task MainAsync(string[] args)
         {
-            var test5 = DateTime.Parse("1861.1.2");
-            await Bootstrap.Init();
-            var testTwo = Localization.Data;
+            var testGame = new GameState();
+            await testGame.Init();
             var testPath =
                 "C:\\Users\\cjohnson\\Documents\\Paradox Interactive\\Victoria II\\save games\\Spain1844_07_07.v2";
             //testPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Victoria 2\\common\\pop_types.txt";

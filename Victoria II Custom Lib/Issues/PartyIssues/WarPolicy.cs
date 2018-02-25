@@ -19,7 +19,7 @@ namespace Victoria_II_Custom_Lib.Issues.PartyIssues
 
         public async Task Init()
         {
-            var node = await IssueLoader.Default.Load();
+            //var node = await IssueLoader.Default.Load();
             //foreach(var entry in node[])
         }
     }

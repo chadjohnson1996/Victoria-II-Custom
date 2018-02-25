@@ -47,7 +47,8 @@ namespace Victoria_II_Custom_Lib.FileLoader
                     return Cache;
                 }
 
-                var dir = new DirectoryInfo(FolderName);
+                var path = Path.Combine(GlobalConfig.RootDirectory, FolderName);
+                var dir = new DirectoryInfo(path);
                 var result = new KeyValueNode();
                 result.Key = "root";
                 result.Children = new Dictionary<string, KeyValueNode>();

@@ -11,9 +11,9 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
         /// <summary>
         /// the issue loader
         /// </summary>
-        public GameFileLoader IssueLoader { get; } = new GameFileLoader("/common/issues.txt");
+        public GameFileLoader IssueLoader { get; } = new GameFileLoader("common/issues.txt");
 
-        public GameFolderLoader DecisionsLoader { get; } = new GameFolderLoader("/decisions");
+        public GameFolderLoader DecisionsLoader { get; } = new GameFolderLoader("decisions");
         public async Task Load()
         {
             await Task.WhenAll(IssueLoader.Load(), 
