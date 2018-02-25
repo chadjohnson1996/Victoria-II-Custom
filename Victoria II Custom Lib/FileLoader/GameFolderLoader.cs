@@ -35,17 +35,23 @@ namespace Victoria_II_Custom_Lib.FileLoader
         public Func<FileInfo, string> KeyProvider { get; }
 
         /// <summary>
+        /// whether it should recurse
+        /// </summary>
+        public bool Recurse { get; }
+
+        /// <summary>
         /// the game folder loader
         /// </summary>
         /// <param name="folderName">the folder name</param>
         /// <param name="rootDepth">the root depth that we care about</param>
         /// <param name="keyProvider">the key provider</param>
-        public GameFolderLoader(string folderName, int rootDepth = 1, Func<FileInfo, string> keyProvider = null) 
+        /// <param name="recurse">whether or not is should recurse through all the folders</param>
+        public GameFolderLoader(string folderName, int rootDepth = 1, Func<FileInfo, string> keyProvider = null, bool recurse = false) 
         {
             RootDepth = rootDepth;
             FolderName = folderName;
             KeyProvider = keyProvider;
-
+            Recurse = recurse;
         }
 
         public async Task<List<KeyValueNode>> Load()
