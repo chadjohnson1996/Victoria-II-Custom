@@ -13,7 +13,7 @@ namespace Victoria_II_Custom_Lib.FileLoader
         /// <summary>
         /// the cache
         /// </summary>
-        private KeyValueNode Cache { get; set; }
+        private List<KeyValueNode> Cache { get; set; }
         
         /// <summary>
         /// the folder lock
@@ -40,7 +40,7 @@ namespace Victoria_II_Custom_Lib.FileLoader
             FolderName = folderName;
         }
 
-        public async Task<KeyValueNode> Load()
+        public async Task<List<KeyValueNode>> Load()
         {
             if (Cache != null)
             {
@@ -57,26 +57,31 @@ namespace Victoria_II_Custom_Lib.FileLoader
 
                 var path = Path.Combine(GlobalConfig.RootDirectory, FolderName);
                 var dir = new DirectoryInfo(path);
-                var result = new KeyValueNode();
-                result.Key = "root";
-                result.Children = new Dictionary<string, KeyValueNode>();
+                var result = new List<KeyValueNode>();
+                var count = 0;
                 foreach (var file in dir.GetFiles())
                 {
                     var loader = new GameFileLoader(file.FullName);
                     var toAdd = await loader.Load();
 
-                    var concernedWith = toAdd.Children.Values.ToList();
+                    var concernedWith = toAdd.ToList();
+                    count += concernedWith.Count;
                     var recurseTo = RootDepth;
-                    while (recurseTo < 0)
+                    if (file.FullName.Contains("event"))
                     {
-                        concernedWith = concernedWith.SelectMany(x => x.Children.Values).ToList();
+                        var test = 5;
+                    }
+                    while (recurseTo > 0)
+                    {
+                        concernedWith = concernedWith.SelectMany(x => x.ToList()).ToList();
                         recurseTo--;
                     }
-                    foreach (var value in toAdd.Children.FirstOrDefault().Value.Children)
-                    {
-                        result[value.Key] = value.Value;
-                    }
+                    
+                    result = result.Concat(concernedWith).ToList();
+                    //Console.WriteLine(result.Count);
                 }
+
+                Console.WriteLine(count);
                 Cache = result;
                 return Cache;
             }

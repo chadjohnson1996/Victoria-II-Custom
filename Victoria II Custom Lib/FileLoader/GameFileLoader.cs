@@ -21,6 +21,8 @@ namespace Victoria_II_Custom_Lib.FileLoader
         private string RelativePath { get; }
 
         private SemaphoreSlim LoadSem { get; } = new SemaphoreSlim(1);
+
+        public int RootDepth { get; }
         /// <summary>
         /// loads file at the relative path
         /// </summary>
@@ -28,6 +30,7 @@ namespace Victoria_II_Custom_Lib.FileLoader
         public GameFileLoader(string relativePath)
         {
             RelativePath = relativePath;
+            
         }
 
         public async Task<KeyValueNode> Load()

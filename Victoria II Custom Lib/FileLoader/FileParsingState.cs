@@ -55,7 +55,7 @@ namespace Victoria_II_Custom_Lib
             }
             else
             {
-                toReturn.Children = new Dictionary<string, KeyValueNode>();
+                toReturn.Children = new Dictionary<string, List<KeyValueNode>>();
             }
 
             return toReturn;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Victoria_II_Custom_Lib
 {
-    public class KeyValueNode
+    public class KeyValueNode : IEnumerable<KeyValueNode>
     {
         /// <summary>
         /// the key
@@ -16,7 +17,7 @@ namespace Victoria_II_Custom_Lib
         /// <summary>
         /// the children
         /// </summary>
-        public Dictionary<string, KeyValueNode> Children { get; set; }
+        public Dictionary<string, List<KeyValueNode>> Children { get; set; }
 
         /// <summary>
         /// the value
@@ -30,8 +31,43 @@ namespace Victoria_II_Custom_Lib
 
         public KeyValueNode this[string i]
         {
-            get => Children[i];
-            set => Children[i] = value;
+            get
+            {
+                if (!Children.ContainsKey(i))
+                {
+                    return null;
+                }
+                return Children[i].FirstOrDefault();
+            }
+            set
+            {
+                if (!Children.ContainsKey(i))
+                {
+                    Children[i] = new List<KeyValueNode>();
+                }
+                Children[i].Add(value);
+            }
+        }
+
+        public IEnumerator<KeyValueNode> GetEnumerator()
+        {
+            foreach (var value in Children.Values)
+            {
+                foreach (var child in value)
+                {
+                    yield return child;
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            return Key;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

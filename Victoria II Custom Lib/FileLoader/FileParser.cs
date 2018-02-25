@@ -37,10 +37,9 @@ namespace Victoria_II_Custom_Lib
             using(var sr = new StreamReader(File.OpenRead(path)))
             {
                 var data = await sr.ReadToEndAsync();
-                Console.WriteLine(data.Length);
                 var root = new KeyValueNode();
                 root.Key = "Root";
-                root.Children = new Dictionary<string, KeyValueNode>();
+                root.Children = new Dictionary<string, List<KeyValueNode>>();
                 var toReturn = ParseHelper(root, data, 0, data.Length);
                 return toReturn;
             }
@@ -74,13 +73,13 @@ namespace Victoria_II_Custom_Lib
                 var nextNode = currentNode.BuildNode();
                 if (nextNode.IsLeaf)
                 {
-                    parent.Children[nextNode.Key] = nextNode;
+                    parent[nextNode.Key] = nextNode;
                 }
                 else
                 {
                     var toAdd = ParseHelper(nextNode, data, currentNode.ChildrenStartIndex,
                     currentNode.ChildrenIndexCount);
-                    parent.Children[toAdd.Key] = toAdd;
+                    parent[toAdd.Key] = toAdd;
                 }
 
                 currentNode = new FileParsingState();
