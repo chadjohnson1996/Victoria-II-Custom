@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Victoria_II_Custom_Lib.FileLoader;
-
-namespace Victoria_II_Custom_Lib.Issues
+﻿namespace Victoria_II_Custom_Lib.FileLoader.Loaders
 {
     public class IssueLoader : GameFileLoader
     {

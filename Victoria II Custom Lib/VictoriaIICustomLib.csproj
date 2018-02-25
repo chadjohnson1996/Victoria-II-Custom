@@ -52,7 +52,7 @@
     <Compile Include="Goods\Good.cs" />
     <Compile Include="Issues\EconomicReform.cs" />
     <Compile Include="Issues\IssueConstants.cs" />
-    <Compile Include="Issues\IssueLoader.cs" />
+    <Compile Include="FileLoader\Loaders\IssueLoader.cs" />
     <Compile Include="Issues\MilitaryReform.cs" />
     <Compile Include="Issues\PartyIssues\CitizenshipPolicy.cs" />
     <Compile Include="Issues\PartyIssues\EconomicPolicy.cs" />
