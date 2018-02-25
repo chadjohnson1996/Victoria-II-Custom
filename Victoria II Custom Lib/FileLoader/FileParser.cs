@@ -135,7 +135,11 @@ namespace Victoria_II_Custom_Lib
                 return;
             }
 
-            toProcess.KeyBuilder.Append(current);
+            if (!char.IsWhiteSpace(current))
+            {
+                toProcess.KeyBuilder.Append(current);
+            }
+            
         }
 
         /// <summary>

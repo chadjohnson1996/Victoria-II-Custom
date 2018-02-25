@@ -56,7 +56,7 @@ namespace Victoria_II_Custom_Lib.FileLoader
                 {
                     var loader = new GameFileLoader(file.FullName);
                     var toAdd = await loader.Load();
-                    foreach (var value in toAdd.Children)
+                    foreach (var value in toAdd.Children.FirstOrDefault().Value.Children)
                     {
                         result[value.Key] = value.Value;
                     }
