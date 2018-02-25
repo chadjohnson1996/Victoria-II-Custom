@@ -16,7 +16,7 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
         /// <summary>
         /// the decisions loader
         /// </summary>
-        public GameFolderLoader DecisionsLoader { get; } = new GameFolderLoader("decisions", 1);
+        public GameFolderLoader DecisionsLoader { get; } = new GameFolderLoader("decisions", 2);
 
         /// <summary>
         /// the events loader

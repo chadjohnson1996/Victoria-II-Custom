@@ -40,7 +40,7 @@ namespace Victoria_II_Custom_Lib.FileLoader
         /// <param name="folderName">the folder name</param>
         /// <param name="rootDepth">the root depth that we care about</param>
         /// <param name="useNameAsKey">whether it should use the name as the key</param>
-        public GameFolderLoader(string folderName, int rootDepth = 0, bool useNameAsKey = false)
+        public GameFolderLoader(string folderName, int rootDepth = 1, bool useNameAsKey = false)
         {
             RootDepth = rootDepth;
             FolderName = folderName;
@@ -72,7 +72,7 @@ namespace Victoria_II_Custom_Lib.FileLoader
                     var loader = new GameFileLoader(file.FullName, UseNameAsKey);
                     var toAdd = await loader.Load();
 
-                    var concernedWith = toAdd.ToList();
+                    var concernedWith = new List<KeyValueNode>{toAdd};
 
                     var recurseTo = RootDepth;
 
