@@ -48,6 +48,17 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
         /// </summary>
         public GameFolderLoader UnitLoader { get; } = new GameFolderLoader("units");
 
+        /// <summary>
+        /// the game folder loader
+        /// </summary>
+        public GameFolderLoader ProvinceLoader { get; } = new GameFolderLoader("history/provinces", 0, x =>
+            {
+                var name = x.Name;
+                var index = name.IndexOf("-");
+                var key = name.Substring(0, index).Trim();
+                return key;
+            }, 
+            true);
         public async Task Load()
         {
             await Task.WhenAll(IssueLoader.Load(), 
@@ -56,7 +67,8 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
                 InventionsLoader.Load(),
                 TechnologiesLoader.Load(),
                 PopLoader.Load(),
-                UnitLoader.Load()
+                UnitLoader.Load(),
+                ProvinceLoader.Load()
                 );
         }
     }
