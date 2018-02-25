@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Victoria_II_Custom_Lib.Interfaces;
+using Victoria_II_Custom_Lib.General;
 
 namespace Victoria_II_Custom_Lib.Issues.PartyIssues
 {
-    public class WarPolicy : ILocalizable
+    public class WarPolicy : LocalizableObject
     {
 
-        public string Name { get; set; }
-        public string DisplayName { get; set; }
-
-        public static WarPolicy Default { get; } = new WarPolicy();
-        private WarPolicy()
+        //public static WarPolicy Default { get; } = new WarPolicy();
+        private WarPolicy(string name) : base(name)
         {
 
         }

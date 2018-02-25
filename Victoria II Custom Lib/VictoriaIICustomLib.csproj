@@ -67,8 +67,6 @@
     <Compile Include="Units\Unit.cs" />
     <Compile Include="Units\UnitTypeEnum.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

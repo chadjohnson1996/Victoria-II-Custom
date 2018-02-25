@@ -16,7 +16,7 @@ namespace Victoria_II_Custom_Lib
         /// <summary>
         /// the children
         /// </summary>
-        public List<KeyValueNode> Children { get; set; }
+        public Dictionary<string, KeyValueNode> Children { get; set; }
 
         /// <summary>
         /// the value
@@ -30,8 +30,8 @@ namespace Victoria_II_Custom_Lib
 
         public KeyValueNode this[string i]
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get => Children[i];
+            set => Children[i] = value;
         }
     }
 }
