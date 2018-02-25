@@ -53,13 +53,13 @@
     <Compile Include="FileLoader\GameFileLoader.cs" />
     <Compile Include="FileLoader\GameFolderLoader.cs" />
     <Compile Include="FileLoader\KeyValueNode.cs" />
+    <Compile Include="FileLoader\Loaders\GameStateLoaders.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="General\LocalizableObject.cs" />
     <Compile Include="GlobalConfig.cs" />
     <Compile Include="Goods\Good.cs" />
     <Compile Include="Issues\EconomicReform.cs" />
     <Compile Include="Issues\IssueConstants.cs" />
-    <Compile Include="FileLoader\Loaders\IssueLoader.cs" />
     <Compile Include="Issues\MilitaryReform.cs" />
     <Compile Include="Issues\PartyIssues\CitizenshipPolicy.cs" />
     <Compile Include="Issues\PartyIssues\EconomicPolicy.cs" />

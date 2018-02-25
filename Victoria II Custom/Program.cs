@@ -17,6 +17,7 @@ namespace Victoria_II_Custom
 
         static async Task MainAsync(string[] args)
         {
+            var test5 = DateTime.Parse("1861.1.2");
             await Bootstrap.Init();
             var testTwo = Localization.Data;
             var testPath =
