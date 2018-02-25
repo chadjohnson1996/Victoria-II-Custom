@@ -26,6 +26,7 @@ namespace Victoria_II_Custom_Lib.LocalizationInfo
                 using (var sr = new StreamReader(File.OpenRead(file.FullName)))
                 {
                     var config = new CsvHelper.Configuration.Configuration();
+                    config.BadDataFound = x => Console.WriteLine(x.ToString());
                     config.Delimiter = ";";
                     var parser = new CsvParser(sr, config);
                    

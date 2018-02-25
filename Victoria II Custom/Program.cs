@@ -17,7 +17,7 @@ namespace Victoria_II_Custom
 
         static async Task MainAsync(string[] args)
         {
-            await Localization.Init();
+            await Bootstrap.Init();
             var testTwo = Localization.Data;
             var testPath =
                 "C:\\Users\\cjohnson\\Documents\\Paradox Interactive\\Victoria II\\save games\\Spain1844_07_07.v2";

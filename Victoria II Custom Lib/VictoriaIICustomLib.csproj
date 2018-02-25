@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrap.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="FileLoader\FileParser.cs" />
