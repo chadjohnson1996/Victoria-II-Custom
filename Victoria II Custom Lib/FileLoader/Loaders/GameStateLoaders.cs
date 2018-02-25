@@ -22,11 +22,23 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
         /// the events loader
         /// </summary>
         public GameFolderLoader EventsLoader { get; } = new GameFolderLoader("events");
+
+        /// <summary>
+        /// the inventions loader
+        /// </summary>
+        public GameFolderLoader InventionsLoader { get; } = new GameFolderLoader("inventions");
+
+        /// <summary>
+        /// added the technologies folder
+        /// </summary>
+        public GameFolderLoader TechnologiesLoader { get; } = new GameFolderLoader("technologies");
         public async Task Load()
         {
             await Task.WhenAll(IssueLoader.Load(), 
                 DecisionsLoader.Load(),
-                EventsLoader.Load()
+                EventsLoader.Load(),
+                InventionsLoader.Load(),
+                TechnologiesLoader.Load()
                 );
         }
     }

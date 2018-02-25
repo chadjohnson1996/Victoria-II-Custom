@@ -22,7 +22,6 @@ namespace Victoria_II_Custom_Lib.FileLoader
 
         private SemaphoreSlim LoadSem { get; } = new SemaphoreSlim(1);
 
-        public int RootDepth { get; }
         /// <summary>
         /// loads file at the relative path
         /// </summary>
