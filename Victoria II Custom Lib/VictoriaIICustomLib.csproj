@@ -47,9 +47,11 @@
     <Compile Include="FileLoader\FileParsingStateEnum.cs" />
     <Compile Include="FileLoader\GameFileLoader.cs" />
     <Compile Include="FileLoader\KeyValueNode.cs" />
+    <Compile Include="General\LocalizableObject.cs" />
     <Compile Include="GlobalConfig.cs" />
     <Compile Include="Goods\Good.cs" />
     <Compile Include="Issues\EconomicReform.cs" />
+    <Compile Include="Issues\IssueConstants.cs" />
     <Compile Include="Issues\IssueLoader.cs" />
     <Compile Include="Issues\MilitaryReform.cs" />
     <Compile Include="Issues\PartyIssues\CitizenshipPolicy.cs" />
@@ -65,6 +67,8 @@
     <Compile Include="Units\Unit.cs" />
     <Compile Include="Units\UnitTypeEnum.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

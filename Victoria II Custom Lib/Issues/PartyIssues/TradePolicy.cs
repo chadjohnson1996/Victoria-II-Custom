@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Victoria_II_Custom_Lib.Interfaces;
 
 namespace Victoria_II_Custom_Lib.Issues.PartyIssues
 {
-    class TradePolicy
+    public class TradePolicy : ILocalizable
     {
+        public string Name { get; set; }
+        public string DisplayName { get; set; }
     }
 }

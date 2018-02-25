@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Victoria_II_Custom_Lib.Issues.PartyIssues
 {
-    class EconomicPolicy
+    public class EconomicPolicy
     {
+        public string Name { get; set; }
+        public string DisplayName { get; set; }
     }
 }

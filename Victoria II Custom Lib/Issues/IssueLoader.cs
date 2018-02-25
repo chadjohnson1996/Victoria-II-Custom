@@ -9,7 +9,7 @@ namespace Victoria_II_Custom_Lib.Issues
 {
     public class IssueLoader : GameFileLoader
     {
-        public IssueLoader Default { get; } = new IssueLoader();
+        public static IssueLoader Default { get; } = new IssueLoader();
         /// <summary>
         /// defines issue loader
         /// </summary>
