@@ -15,9 +15,9 @@ namespace Victoria_II_Custom_Lib.LocalizationInfo
         /// <summary>
         /// the localization data
         /// </summary>
-        public static ConcurrentDictionary<string, IList<string>> Data { get; } = new ConcurrentDictionary<string, IList<string>>();
+        public ConcurrentDictionary<string, IList<string>> Data { get; } = new ConcurrentDictionary<string, IList<string>>();
 
-        public static async Task Init()
+        public async Task Init()
         {
             var subDir = new DirectoryInfo(Path.Combine(Config.Default.RootDirectory, "localisation"));
 

@@ -16,7 +16,9 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
         public GameFolderLoader DecisionsLoader { get; } = new GameFolderLoader("/decisions");
         public async Task Load()
         {
-            
+            await Task.WhenAll(IssueLoader.Load(), 
+                DecisionsLoader.Load()
+                );
         }
     }
 }
