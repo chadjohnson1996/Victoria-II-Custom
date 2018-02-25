@@ -38,6 +38,11 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
         /// </summary>
         public GameFolderLoader PopLoader { get; } = new GameFolderLoader("poptypes", 0, true);
 
+        /// <summary>
+        /// the unit loader
+        /// </summary>
+        public GameFolderLoader UnitLoader { get; } = new GameFolderLoader("units");
+
         public async Task Load()
         {
             await Task.WhenAll(IssueLoader.Load(), 
@@ -45,7 +50,8 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
                 EventsLoader.Load(),
                 InventionsLoader.Load(),
                 TechnologiesLoader.Load(),
-                PopLoader.Load()
+                PopLoader.Load(),
+                UnitLoader.Load()
                 );
         }
     }
