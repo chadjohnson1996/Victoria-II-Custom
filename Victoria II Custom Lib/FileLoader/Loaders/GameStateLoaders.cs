@@ -63,9 +63,15 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
             }, 
             true);
 
+        /// <summary>
+        /// the pop loader
+        /// </summary>
         public GameFolderLoader PopLoader { get; } =
             new GameFolderLoader("history/pops", 0, x => x.Directory.Name, true);
 
+        /// <summary>
+        /// loads the oob
+        /// </summary>
         public GameFolderLoader OobLoader { get; } = new GameFolderLoader("history/units", 0, x =>
         {
             var name = x.DirectoryName;
@@ -76,6 +82,27 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
             var key = Path.Combine(dirKey, fileName);
             return key;
         }, true);
+
+        /// <summary>
+        /// loads the bookmarks
+        /// </summary>
+        public GameFileLoader BookmarkLoader { get; } = new GameFileLoader("common/bookmarks.txt");
+
+        /// <summary>
+        /// the building loader
+        /// </summary>
+        public GameFileLoader BuildingLoader { get; } = new GameFileLoader("common/buildings.txt");
+
+        /// <summary>
+        /// the cb loader
+        /// </summary>
+        public GameFileLoader CbLoader { get; } = new GameFileLoader("common/cb_types.txt");
+
+        /// <summary>
+        /// the color loader
+        /// </summary>
+        public GameFileLoader CotColorLoader { get; } = new GameFileLoader("common/cot_colors.txt");
+
         public async Task Load()
         {
             await Task.WhenAll(IssueLoader.Load(), 
@@ -88,7 +115,11 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
                 ProvinceLoader.Load(),
                 PopTypeLoader.Load(),
                 DiplomacyLoader.Load(),
-                OobLoader.Load()
+                OobLoader.Load(),
+                BookmarkLoader.Load(),
+                BuildingLoader.Load(),
+                CbLoader.Load(),
+                CotColorLoader.Load()
                 );
         }
     }
