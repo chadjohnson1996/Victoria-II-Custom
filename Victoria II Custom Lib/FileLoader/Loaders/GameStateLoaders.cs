@@ -235,7 +235,25 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
                 CotColorLoader.Load(),
                 NationalFocusLoader.Load(),
                 GraphicalCultureLoader.Load(),
-                IdeologyLoader.Load()
+                IdeologyLoader.Load(),
+                CountryLoader.Load(),
+                CountryColorsLoader.Load(),
+                CrimeLoader.Load(),
+                CultureLoader.Load(),
+                DefinesLoader.Load(),
+                EventModifiersLoader.Load(),
+                GoodsLoader.Load(),
+                GovernmentsLoader.Load(),
+                NationalValueLoader.Load(),
+                OnActionsLoader.Load(),
+                PopTypeLoader.Load(),
+                ProductionTypeLoader.Load(),
+                RebelTypeLoader.Load(),
+                ReligionLoader.Load(),
+                StaticModifiersLoader.Load(),
+                TechSchoolLoader.Load(),
+                TraitsLoader.Load(),
+                TriggeredModifiersLoader.Load()
                 );
         }
     }
