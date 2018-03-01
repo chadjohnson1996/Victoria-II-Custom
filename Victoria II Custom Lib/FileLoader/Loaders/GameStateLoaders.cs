@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,8 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
         /// </summary>
         public GameFolderLoader UnitLoader { get; } = new GameFolderLoader("units");
 
+        public GameFolderLoader DiplomacyLoader { get; } = new GameFolderLoader("history/diplomacy");
+
         /// <summary>
         /// the game folder loader
         /// </summary>
@@ -62,6 +65,17 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
 
         public GameFolderLoader PopLoader { get; } =
             new GameFolderLoader("history/pops", 0, x => x.Directory.Name, true);
+
+        public GameFolderLoader OobLoader { get; } = new GameFolderLoader("history/units", 0, x =>
+        {
+            var name = x.DirectoryName;
+            var indexFrom = "units";
+            var lastindex = name.LastIndexOf(indexFrom) + indexFrom.Length;
+            var dirKey = name.Substring(lastindex);
+            var fileName = x.Name;
+            var key = Path.Combine(dirKey, fileName);
+            return key;
+        }, true);
         public async Task Load()
         {
             await Task.WhenAll(IssueLoader.Load(), 
@@ -72,7 +86,9 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
                 PopLoader.Load(),
                 UnitLoader.Load(),
                 ProvinceLoader.Load(),
-                PopTypeLoader.Load()
+                PopTypeLoader.Load(),
+                DiplomacyLoader.Load(),
+                OobLoader.Load()
                 );
         }
     }
