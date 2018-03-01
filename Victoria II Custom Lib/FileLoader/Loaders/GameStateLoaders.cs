@@ -36,7 +36,7 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
         /// <summary>
         /// the pop loader
         /// </summary>
-        public GameFolderLoader PopLoader { get; } = new GameFolderLoader("poptypes", 0, x =>
+        public GameFolderLoader PopTypeLoader { get; } = new GameFolderLoader("poptypes", 0, x =>
         {
             var name = x.Name;
             var extension = x.Extension;
@@ -59,6 +59,9 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
                 return key;
             }, 
             true);
+
+        public GameFolderLoader PopLoader { get; } =
+            new GameFolderLoader("history/pops", 0, x => x.Directory.Name, true);
         public async Task Load()
         {
             await Task.WhenAll(IssueLoader.Load(), 
@@ -68,7 +71,8 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
                 TechnologiesLoader.Load(),
                 PopLoader.Load(),
                 UnitLoader.Load(),
-                ProvinceLoader.Load()
+                ProvinceLoader.Load(),
+                PopTypeLoader.Load()
                 );
         }
     }
