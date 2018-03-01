@@ -54,8 +54,8 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
         public GameFolderLoader ProvinceLoader { get; } = new GameFolderLoader("history/provinces", 0, x =>
             {
                 var name = x.Name;
-                var index = name.IndexOf("-");
-                var key = name.Substring(0, index).Trim();
+                var index = name.IndexOf(" ");
+                var key = name.Substring(0, index + 1).Trim();
                 return key;
             }, 
             true);

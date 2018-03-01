@@ -54,6 +54,35 @@ namespace Victoria_II_Custom_Lib.FileLoader
             Recurse = recurse;
         }
 
+        private List<DirectoryInfo> GetDirectories()
+        {
+            var result = new List<DirectoryInfo>();
+            var toProcess = new Queue<DirectoryInfo>();
+            var path = Path.Combine(GlobalConfig.RootDirectory, FolderName);
+            var root = new DirectoryInfo(path);
+
+
+            result.Add(root);
+
+            if (!Recurse)
+            {
+                return result;
+            }
+            toProcess.Enqueue(root);
+            while (toProcess.Count > 0)
+            {
+                var current = toProcess.Dequeue();
+                foreach (var dir in current.EnumerateDirectories())
+                {
+                    result.Add(dir);
+                    toProcess.Enqueue(dir);
+                }
+            }
+
+
+            return result;
+        }
+
         public async Task<List<KeyValueNode>> Load()
         {
             if (Cache != null)
@@ -69,27 +98,30 @@ namespace Victoria_II_Custom_Lib.FileLoader
                     return Cache;
                 }
 
-                var path = Path.Combine(GlobalConfig.RootDirectory, FolderName);
-                var dir = new DirectoryInfo(path);
+                var directories = GetDirectories();
                 var result = new List<KeyValueNode>();
 
-                foreach (var file in dir.GetFiles())
+                foreach (var dir in directories)
                 {
-                    var loader = new GameFileLoader(file.FullName, KeyProvider);
-                    var toAdd = await loader.Load();
-
-                    var concernedWith = new List<KeyValueNode>{toAdd};
-
-                    var recurseTo = RootDepth;
-
-                    while (recurseTo > 0)
+                    foreach (var file in dir.GetFiles())
                     {
-                        concernedWith = concernedWith.SelectMany(x => x.ToList()).ToList();
-                        recurseTo--;
+                        var loader = new GameFileLoader(file.FullName, KeyProvider);
+                        var toAdd = await loader.Load();
+
+                        var concernedWith = new List<KeyValueNode> { toAdd };
+
+                        var recurseTo = RootDepth;
+
+                        while (recurseTo > 0)
+                        {
+                            concernedWith = concernedWith.SelectMany(x => x.ToList()).ToList();
+                            recurseTo--;
+                        }
+
+                        result = result.Concat(concernedWith).ToList();
                     }
-                    
-                    result = result.Concat(concernedWith).ToList();
                 }
+
                 Cache = result;
                 return Cache;
             }
