@@ -81,6 +81,11 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
             var key = Path.Combine(dirKey, fileName);
             return key;
         }, true);
+
+        /// <summary>
+        /// the war loader
+        /// </summary>
+        public GameFolderLoader WarLoader { get; } = new GameFolderLoader("history/wars");
         #endregion
 
         #region common
@@ -229,6 +234,7 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
                 PopTypeLoader.Load(),
                 DiplomacyLoader.Load(),
                 OobLoader.Load(),
+                WarLoader.Load(),
                 BookmarkLoader.Load(),
                 BuildingLoader.Load(),
                 CbLoader.Load(),

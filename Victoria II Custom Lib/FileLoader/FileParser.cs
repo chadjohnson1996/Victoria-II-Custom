@@ -147,6 +147,11 @@ namespace Victoria_II_Custom_Lib
         /// <param name="index">the index</param>
         private void ProcessParsingKey(FileParsingState toProcess, char current, int index)
         {
+            if (PrepComment(toProcess, current))
+            {
+                return;
+            }
+
             if (current == '=')
             {
                 toProcess.State = FileParsingStateEnum.ParseValue;
