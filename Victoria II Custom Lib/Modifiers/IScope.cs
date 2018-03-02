@@ -17,5 +17,26 @@ namespace Victoria_II_Custom_Lib.Modifiers
         /// the country
         /// </summary>
         string Country { get; set; }
+
+        /// <summary>
+        /// the parent scope
+        /// </summary>
+        IScope Parent { get; set; }
+
+        /// <summary>
+        /// the previous scope
+        /// </summary>
+        IScope Previous { get; set; }
+
+        /// <summary>
+        /// the scope type enum
+        /// </summary>
+        ScopeTypeEnum Type { get; set; }
+
+        /// <summary>
+        /// applies the given modifier to the scope
+        /// </summary>
+        /// <param name="modifier">the modifier to apply</param>
+        void ApplyModifier(Modifier modifier);
     }
 }
