@@ -94,6 +94,16 @@ namespace Victoria_II_Custom_Lib
                 i++;
             }
 
+            var lastNode = currentNode.BuildNode();
+            if (!parent.Children.ContainsKey(lastNode.Key))
+            {
+                parent.Children[lastNode.Key] = new List<KeyValueNode>();
+            }
+            if (currentNode.State != FileParsingStateEnum.Initial && !parent.Children[lastNode.Key].Contains(lastNode))
+            {
+                parent.Children[lastNode.Key].Add(lastNode);
+            }
+
             return parent;
         }
 
