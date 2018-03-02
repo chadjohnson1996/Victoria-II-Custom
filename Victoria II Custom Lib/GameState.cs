@@ -21,6 +21,16 @@ namespace Victoria_II_Custom_Lib
         public GameStateLoaders Loaders { get; } = new GameStateLoaders();
 
         /// <summary>
+        /// the global flags
+        /// </summary>
+        public HashSet<string> GlobalFlags { get; } = new HashSet<string>();
+
+        /// <summary>
+        /// the variables
+        /// </summary>
+        public Dictionary<string, decimal> Variables { get; } = new Dictionary<string, decimal>();
+
+        /// <summary>
         /// the good state
         /// </summary>
         public GoodState GoodState { get; private set; }
@@ -30,6 +40,44 @@ namespace Victoria_II_Custom_Lib
             await Loaders.Load();
             await Localization.Init();
             GoodState = new GoodState(await Loaders.GoodsLoader.Load());
+        }
+
+        /// <summary>
+        /// sets a flag from the global flags
+        /// </summary>
+        /// <param name="flag">the flags to set</param>
+        public void SetFlag(string flag)
+        {
+            GlobalFlags.Add(flag);
+        }
+
+        /// <summary>
+        /// removes a flag from the global flag
+        /// </summary>
+        /// <param name="flag">the flag</param>
+        public void RemoveFlag(string flag)
+        {
+            GlobalFlags.Remove(flag);
+        }
+
+        /// <summary>
+        /// sets a variable
+        /// </summary>
+        /// <param name="name">the variable to set</param>
+        /// <param name="value">the value</param>
+        public void SetVariable(string name, decimal value)
+        {
+            Variables[name] = value;
+        }
+
+        /// <summary>
+        /// adds the given value to the variable
+        /// </summary>
+        /// <param name="name">the variable</param>
+        /// <param name="toAdd">the value to add</param>
+        public void ChangeVariable(string name, decimal toAdd)
+        {
+            Variables[name] += toAdd;
         }
     }
 }
