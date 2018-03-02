@@ -135,8 +135,8 @@ namespace Victoria_II_Custom_Lib.Units
             WeightedValue = root["weighted_value"].Value.AsDecimal();
             BuildTime = root["build_time"].Value.AsInt();
             SupplyConsumption = root["supply_consumption"].Value.AsDecimal();
-            BuildCost = Good.PopulateCost(root["build_cost"]);
-            SupplyCost = Good.PopulateCost(root["supply_cost"]);
+            //BuildCost = Good.PopulateCost(root["build_cost"]);
+            //SupplyCost = Good.PopulateCost(root["supply_cost"]);
         }
 
         public static Unit Factory(KeyValueNode root)
