@@ -83,7 +83,14 @@ namespace Victoria_II_Custom_Lib
                     parent[toAdd.Key] = toAdd;
                 }
 
+                var oldNode = currentNode;
                 currentNode = new FileParsingState();
+                if (oldNode.IncludeCurrentInNext)
+                {
+                    currentNode.State = FileParsingStateEnum.ParsingKey;
+                    currentNode.KeyBuilder.Append(currentChar);
+                }
+
                 i++;
             }
 
@@ -171,6 +178,7 @@ namespace Victoria_II_Custom_Lib
             else
             {
                 toProcess.State = FileParsingStateEnum.Finished;
+                toProcess.IncludeCurrentInNext = true;
             }
         }
 

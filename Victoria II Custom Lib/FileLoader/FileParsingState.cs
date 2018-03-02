@@ -38,6 +38,11 @@ namespace Victoria_II_Custom_Lib
         /// the bracket count
         /// </summary>
         public int BracketCount { get; set; }
+
+        /// <summary>
+        /// whether or not to include the current character in the next file processing node
+        /// </summary>
+        public bool IncludeCurrentInNext { get; set; }
         public FileParsingState()
         {
             State = FileParsingStateEnum.Initial;
