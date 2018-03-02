@@ -13,7 +13,10 @@ namespace Victoria_II_Custom_Lib.Configuration
         /// </summary>
         public static Config Default { get; } = new Config();
 
-        public string RootDirectory { get; } = "C:\\Users\\cjohnson\\Downloads\\Victoria 2 zip";
+        //public string RootDirectory { get; } = "C:\\Users\\cjohnson\\Downloads\\Victoria 2 zip";
+
+        public string RootDirectory { get; } =
+            "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Victoria 2";
 
     }
 }

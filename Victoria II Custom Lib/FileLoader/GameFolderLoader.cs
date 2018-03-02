@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Victoria_II_Custom_Lib.Configuration;
 
 namespace Victoria_II_Custom_Lib.FileLoader
 {
@@ -58,7 +59,7 @@ namespace Victoria_II_Custom_Lib.FileLoader
         {
             var result = new List<DirectoryInfo>();
             var toProcess = new Queue<DirectoryInfo>();
-            var path = Path.Combine(GlobalConfig.RootDirectory, FolderName);
+            var path = Path.Combine(Config.Default.RootDirectory, FolderName);
             var root = new DirectoryInfo(path);
 
 

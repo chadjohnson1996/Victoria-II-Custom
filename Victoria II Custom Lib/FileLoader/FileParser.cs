@@ -26,6 +26,7 @@ namespace Victoria_II_Custom_Lib
             Parsers.Add(FileParsingStateEnum.ParsingLeafValue, ProcessParsingLeafValue);
             Parsers.Add(FileParsingStateEnum.ParsingNestedValue, ProcessParsingNestedValue);
             Parsers.Add(FileParsingStateEnum.Comment, ProcessComment);
+            Parsers.Add(FileParsingStateEnum.EndKey, ProcessEndKey);
         }
         /// <summary>
         /// parses the key value tree of file specified at the path
@@ -138,7 +139,39 @@ namespace Victoria_II_Custom_Lib
             {
                 toProcess.KeyBuilder.Append(current);
             }
+            else
+            {
+                toProcess.State = FileParsingStateEnum.EndKey;
+            }
             
+        }
+
+        /// <summary>
+        /// processes the end key state
+        /// </summary>
+        /// <param name="toProcess">the state to process</param>
+        /// <param name="current">the current char</param>
+        /// <param name="index">the index</param>
+        private void ProcessEndKey(FileParsingState toProcess, char current, int index)
+        {
+            if (PrepComment(toProcess, current))
+            {
+                return;
+            }
+
+            if (char.IsWhiteSpace(current))
+            {
+                return;
+            }
+
+            if (current == '=')
+            {
+                toProcess.State = FileParsingStateEnum.ParseValue;
+            }
+            else
+            {
+                toProcess.State = FileParsingStateEnum.Finished;
+            }
         }
 
         /// <summary>

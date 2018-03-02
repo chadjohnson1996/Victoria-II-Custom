@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Victoria_II_Custom_Lib.Configuration;
 
 namespace Victoria_II_Custom_Lib.FileLoader
 {
@@ -54,7 +55,7 @@ namespace Victoria_II_Custom_Lib.FileLoader
                     return Cache;
                 }
 
-                var path = Path.Combine(GlobalConfig.RootDirectory, RelativePath);
+                var path = Path.Combine(Config.Default.RootDirectory, RelativePath);
                 var toReturn = await new FileParser().Parse(path);
 
                 if (KeyProvider != null)
