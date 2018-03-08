@@ -37,7 +37,12 @@ namespace Victoria_II_Custom_Lib.Events
         /// <summary>
         /// whether it should be fired
         /// </summary>
-        public bool Fired { get; set; }
+        private bool Fired { get; set; }
+
+        /// <summary>
+        /// the trigger check
+        /// </summary>
+        private Func<IScope, bool> TriggerCheck { get; set; }
 
         /// <summary>
         /// fires an event with the target from the source
@@ -51,6 +56,10 @@ namespace Victoria_II_Custom_Lib.Events
 
         public bool TriggerValid(IScope scope)
         {
+            if (TriggerCheck == null)
+            {
+                return true;
+            }
             throw new NotImplementedException();
         }
         /// <summary>

@@ -45,10 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionEffects\ActionEffectFactory.cs" />
+    <Compile Include="ActionEffects\ActionQueue.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Events\CountryEvent.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\EventOption.cs" />
+    <Compile Include="Events\EventStore.cs" />
     <Compile Include="Events\EventTypeEnum.cs" />
     <Compile Include="Events\ProvinceEvent.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Victoria_II_Custom_Lib.ActionEffects;
 using Victoria_II_Custom_Lib.FileLoader.Loaders;
 using Victoria_II_Custom_Lib.Goods;
 using Victoria_II_Custom_Lib.LocalizationInfo;
@@ -35,6 +36,21 @@ namespace Victoria_II_Custom_Lib
         /// </summary>
         public GoodState GoodState { get; private set; }
 
+        /// <summary>
+        /// the action queue
+        /// </summary>
+        public ActionQueue ActionQueue { get; set; } = new ActionQueue();
+
+        public DateTime Date { get; set; } = DateTime.MinValue;
+
+        /// <summary>
+        /// runs a game tick
+        /// </summary>
+        public void Tick()
+        {
+            ActionQueue.Decrement();
+            Date = Date.AddDays(1);
+        }
         public async Task Init()
         {
             await Loaders.Load();
