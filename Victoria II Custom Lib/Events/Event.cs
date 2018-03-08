@@ -30,6 +30,16 @@ namespace Victoria_II_Custom_Lib.Events
         public bool IsTriggeredOnly { get; set; }
 
         /// <summary>
+        /// whether it should be fired only once
+        /// </summary>
+        public bool FireOnlyOnce { get; set; }
+
+        /// <summary>
+        /// whether it should be fired
+        /// </summary>
+        public bool Fired { get; set; }
+
+        /// <summary>
         /// fires an event with the target from the source
         /// </summary>
         /// <param name="target">the target</param>

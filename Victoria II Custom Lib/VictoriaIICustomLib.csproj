@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionEffects\ActionEffectFactory.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Events\CountryEvent.cs" />
     <Compile Include="Events\Event.cs" />
