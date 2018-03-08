@@ -45,8 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Events\CountryEvent.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\EventOption.cs" />
+    <Compile Include="Events\EventTypeEnum.cs" />
+    <Compile Include="Events\ProvinceEvent.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="FileLoader\FileParser.cs" />
     <Compile Include="FileLoader\FileParsingState.cs" />

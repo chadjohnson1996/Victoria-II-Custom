@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Victoria_II_Custom_Lib.Modifiers;
 
 namespace Victoria_II_Custom_Lib.Events
 {
@@ -27,5 +28,29 @@ namespace Victoria_II_Custom_Lib.Events
         /// whether the event is triggered only
         /// </summary>
         public bool IsTriggeredOnly { get; set; }
+
+        /// <summary>
+        /// fires an event with the target from the source
+        /// </summary>
+        /// <param name="target">the target</param>
+        /// <param name="from">the source</param>
+        public void Fire(IScope target, IScope from)
+        {
+
+        }
+
+        public bool TriggerValid(IScope scope)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// gets the mean time to happen for the scope
+        /// </summary>
+        /// <param name="scope">the scope</param>
+        /// <returns>the mean time to happen</returns>
+        public decimal MeanTimeToHappen(IScope scope)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
