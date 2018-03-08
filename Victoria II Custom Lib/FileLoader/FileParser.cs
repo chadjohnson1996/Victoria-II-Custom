@@ -96,14 +96,18 @@ namespace Victoria_II_Custom_Lib
 
             //this cleanup code handles case where non whitespace char is directly against closing bracket
             var lastNode = currentNode.BuildNode();
-            if (!parent.Children.ContainsKey(lastNode.Key))
+            if (!string.IsNullOrWhiteSpace(lastNode.Key))
             {
-                parent.Children[lastNode.Key] = new List<KeyValueNode>();
+                if (!parent.Children.ContainsKey(lastNode.Key))
+                {
+                    parent.Children[lastNode.Key] = new List<KeyValueNode>();
+                }
+                if (currentNode.State != FileParsingStateEnum.Initial && !parent.Children[lastNode.Key].Contains(lastNode))
+                {
+                    parent.Children[lastNode.Key].Add(lastNode);
+                }
             }
-            if (currentNode.State != FileParsingStateEnum.Initial && !parent.Children[lastNode.Key].Contains(lastNode))
-            {
-                parent.Children[lastNode.Key].Add(lastNode);
-            }
+            
 
             return parent;
         }

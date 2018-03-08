@@ -17,9 +17,22 @@ namespace Victoria_II_Custom_Lib.Countries
         public ScopeTypeEnum Type { get; set; }
         public GameState State { get; set; }
 
+        /// <summary>
+        /// creates a country
+        /// </summary>
+        /// <param name="state">the state</param>
+        /// <param name="root">the root</param>
         private Country(GameState state, KeyValueNode root) : base(root.Key)
         {
             
+        }
+
+        public static Country Factory(GameState state, KeyValueNode root)
+        {
+            var country = new Country(state, root);
+            var governmentLocation = root.Value;
+
+            return country;
         }
 
 
