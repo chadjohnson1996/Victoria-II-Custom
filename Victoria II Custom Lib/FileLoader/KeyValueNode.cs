@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Victoria_II_Custom_Lib.Extensions;
+using Victoria_II_Custom_Lib.General;
 
 namespace Victoria_II_Custom_Lib
 {
@@ -65,6 +67,20 @@ namespace Victoria_II_Custom_Lib
             return Key;
         }
 
+        /// <summary>
+        /// converts a key value node to a color
+        /// </summary>
+        /// <returns>the color</returns>
+        public Color ToColor()
+        {
+            var colors = new List<int>();
+
+            foreach (var child in this)
+            {
+                colors.Add(child.Value.AsInt());
+            }
+            return new Color((byte)colors[0], (byte)colors[1], (byte)colors[2]);
+        }
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();

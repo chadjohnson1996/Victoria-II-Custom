@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Victoria_II_Custom_Lib.ActionEffects;
+using Victoria_II_Custom_Lib.Countries;
 using Victoria_II_Custom_Lib.Events;
 using Victoria_II_Custom_Lib.FileLoader.Loaders;
 using Victoria_II_Custom_Lib.Goods;
@@ -38,6 +40,11 @@ namespace Victoria_II_Custom_Lib
         public GoodState GoodState { get; private set; }
 
         /// <summary>
+        /// the countries
+        /// </summary>
+        public ConcurrentDictionary<string, Country> Countries { get; private set; }
+
+        /// <summary>
         /// the action queue
         /// </summary>
         public ActionQueue ActionQueue { get; set; } = new ActionQueue();
@@ -62,6 +69,7 @@ namespace Victoria_II_Custom_Lib
             await Loaders.Load();
             await Localization.Init();
             GoodState = new GoodState(await Loaders.GoodsLoader.Load());
+            Countries = Country.GetAllCountries(this);
         }
 
         /// <summary>

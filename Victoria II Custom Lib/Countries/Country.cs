@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,10 +30,29 @@ namespace Victoria_II_Custom_Lib.Countries
 
         public static Country Factory(GameState state, KeyValueNode root)
         {
+
             var country = new Country(state, root);
             var governmentLocation = root.Value;
+            var countryFileNode = state.Loaders.CountryDirectoryLoader.Data.First(x => x.Key == governmentLocation);
 
             return country;
+        }
+
+        public static ConcurrentDictionary<string, Country> GetAllCountries(GameState state)
+        {
+            var result = new ConcurrentDictionary<string, Country>();
+            var rootNode = state.Loaders.CountryLoader.Data;
+            foreach (var node in rootNode)
+            {
+                if (node.Key == "dynamic_tags")
+                {
+                    //TODO add handling for dynamic tags
+                    continue;
+                }
+                result[node.Key] = Factory(state, node);
+            }
+
+            return result;
         }
 
 
