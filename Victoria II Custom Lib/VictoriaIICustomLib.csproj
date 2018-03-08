@@ -62,6 +62,8 @@
     <Compile Include="General\LocalizableObject.cs" />
     <Compile Include="GlobalConfig.cs" />
     <Compile Include="Goods\Good.cs" />
+    <Compile Include="Goods\GoodState.cs" />
+    <Compile Include="Goods\GoodTypeEnum.cs" />
     <Compile Include="Issues\EconomicReform.cs" />
     <Compile Include="Issues\IssueConstants.cs" />
     <Compile Include="Issues\MilitaryReform.cs" />
@@ -74,6 +76,8 @@
     <Compile Include="Issues\SocialReform.cs" />
     <Compile Include="LocalizationInfo\Localization.cs" />
     <Compile Include="Modifiers\IScope.cs" />
+    <Compile Include="Modifiers\Modifier.cs" />
+    <Compile Include="Modifiers\ScopeTypeEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Units\LandUnit.cs" />
     <Compile Include="Units\NavalUnit.cs" />
