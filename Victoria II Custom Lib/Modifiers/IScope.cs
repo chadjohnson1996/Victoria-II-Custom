@@ -16,7 +16,7 @@ namespace Victoria_II_Custom_Lib.Modifiers
         /// <summary>
         /// the country
         /// </summary>
-        string Country { get; set; }
+        string ThisCountry { get; set; }
 
         /// <summary>
         /// the parent scope
@@ -33,6 +33,10 @@ namespace Victoria_II_Custom_Lib.Modifiers
         /// </summary>
         ScopeTypeEnum Type { get; set; }
 
+        /// <summary>
+        /// the game state
+        /// </summary>
+        GameState State { get; set; }
         /// <summary>
         /// applies the given modifier to the scope
         /// </summary>

@@ -14,7 +14,7 @@ namespace Victoria_II_Custom_Lib.FileLoader
         /// <summary>
         /// the cache
         /// </summary>
-        private List<KeyValueNode> Cache { get; set; }
+        public List<KeyValueNode> Data { get; set; }
         
         /// <summary>
         /// the folder lock
@@ -86,17 +86,17 @@ namespace Victoria_II_Custom_Lib.FileLoader
 
         public async Task<List<KeyValueNode>> Load()
         {
-            if (Cache != null)
+            if (Data != null)
             {
-                return Cache;
+                return Data;
             }
 
             await Lock.WaitAsync();
             try
             {
-                if (Cache != null)
+                if (Data != null)
                 {
-                    return Cache;
+                    return Data;
                 }
 
                 var directories = GetDirectories();
@@ -123,8 +123,8 @@ namespace Victoria_II_Custom_Lib.FileLoader
                     }
                 }
 
-                Cache = result;
-                return Cache;
+                Data = result;
+                return Data;
             }
             finally
             {

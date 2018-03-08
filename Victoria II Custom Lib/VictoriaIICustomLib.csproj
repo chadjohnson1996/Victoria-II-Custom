@@ -47,6 +47,7 @@
     <Compile Include="ActionEffects\ActionEffectFactory.cs" />
     <Compile Include="ActionEffects\ActionQueue.cs" />
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Countries\Country.cs" />
     <Compile Include="Events\CountryEvent.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\EventOption.cs" />
@@ -89,6 +90,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pops\" />
+    <Folder Include="Provinces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

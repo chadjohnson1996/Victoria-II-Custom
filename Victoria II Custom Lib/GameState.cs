@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Victoria_II_Custom_Lib.ActionEffects;
+using Victoria_II_Custom_Lib.Events;
 using Victoria_II_Custom_Lib.FileLoader.Loaders;
 using Victoria_II_Custom_Lib.Goods;
 using Victoria_II_Custom_Lib.LocalizationInfo;
@@ -40,6 +41,11 @@ namespace Victoria_II_Custom_Lib
         /// the action queue
         /// </summary>
         public ActionQueue ActionQueue { get; set; } = new ActionQueue();
+
+        /// <summary>
+        /// the event store
+        /// </summary>
+        public EventStore EventStore { get; set; } = new EventStore();
 
         public DateTime Date { get; set; } = DateTime.MinValue;
 

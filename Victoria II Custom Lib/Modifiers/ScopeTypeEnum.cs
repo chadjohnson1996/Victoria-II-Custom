@@ -9,6 +9,7 @@ namespace Victoria_II_Custom_Lib.Modifiers
     public enum ScopeTypeEnum
     {
         Country,
-        Province
+        Province,
+        Pop
     }
 }

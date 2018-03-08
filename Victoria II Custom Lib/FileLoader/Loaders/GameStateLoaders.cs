@@ -115,6 +115,17 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
         public GameFileLoader CountryLoader { get; } = new GameFileLoader("common/countries.txt");
 
         /// <summary>
+        /// the country directory loader
+        /// </summary>
+        public GameFolderLoader CountryDirectoryLoader { get; } = new GameFolderLoader("common/countries", 0, x =>
+        {
+            var fullPath = x.Directory.FullName;
+            var splitAt = fullPath.LastIndexOf("countries");
+            var toReturn = $"{fullPath.Substring(splitAt)}/{x.Name}";
+            return toReturn;
+        });
+
+        /// <summary>
         /// the country colors loader
         /// </summary>
         public GameFileLoader CountryColorsLoader { get; } = new GameFileLoader("common/country_colors.txt");
@@ -259,7 +270,8 @@ namespace Victoria_II_Custom_Lib.FileLoader.Loaders
                 StaticModifiersLoader.Load(),
                 TechSchoolLoader.Load(),
                 TraitsLoader.Load(),
-                TriggeredModifiersLoader.Load()
+                TriggeredModifiersLoader.Load(),
+                CountryDirectoryLoader.Load()
                 );
         }
     }

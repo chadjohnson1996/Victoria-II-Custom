@@ -14,7 +14,7 @@ namespace Victoria_II_Custom_Lib.FileLoader
         /// <summary>
         /// the cached value
         /// </summary>
-        private KeyValueNode Cache { get; set; }
+        public KeyValueNode Data { get; set; }
 
         /// <summary>
         /// the relative path
@@ -43,16 +43,16 @@ namespace Victoria_II_Custom_Lib.FileLoader
 
         public async Task<KeyValueNode> Load()
         {
-            if (Cache != null)
+            if (Data != null)
             {
-                return Cache;
+                return Data;
             }
             await LoadSem.WaitAsync();
             try
             {
-                if (Cache != null)
+                if (Data != null)
                 {
-                    return Cache;
+                    return Data;
                 }
 
                 var path = Path.Combine(Config.Default.RootDirectory, RelativePath);
@@ -63,7 +63,7 @@ namespace Victoria_II_Custom_Lib.FileLoader
                     var fileInfo = new FileInfo(path);
                     toReturn.Key = KeyProvider(fileInfo);
                 }
-                Cache = toReturn;
+                Data = toReturn;
                 return toReturn;
             }
             finally
