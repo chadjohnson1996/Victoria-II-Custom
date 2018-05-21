@@ -17,6 +17,14 @@ namespace Victoria_II_Custom_Lib.Countries
         public IScope Previous { get; set; }
         public ScopeTypeEnum Type { get; set; }
         public GameState State { get; set; }
+        public string Tag { get; set; }
+        public bool IsAi { get; set; }
+        public BudgetInfo BudgetInfo { get; set; }
+        public DiplomaticInfo DiplomaticInfo { get; set; }
+
+        public decimal Consciousness { get; set; }
+
+        public decimal Militancy { get; set; }
 
         /// <summary>
         /// creates a country

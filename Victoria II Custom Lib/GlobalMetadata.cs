@@ -36,6 +36,16 @@ namespace Victoria_II_Custom_Lib
 
         public DateTime Date { get; set; } = DateTime.MinValue;
 
+        /// <summary>
+        /// the enabled canals
+        /// </summary>
+        public HashSet<int> EnabledCanals { get; } = new HashSet<int>();
+
+        /// <summary>
+        /// the infamy limit
+        /// </summary>
+        public decimal InfamyLimit { get; set; }
+
         public GlobalMetadata()
         {
             MonthMap["JANUARY"] = 1;

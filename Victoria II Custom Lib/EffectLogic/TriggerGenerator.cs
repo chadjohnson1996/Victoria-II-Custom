@@ -24,7 +24,12 @@ namespace Victoria_II_Custom_Lib.EffectLogic
             Handlers["month"] = MonthHandler;
             Handlers["check_variable"] = CheckVariable;
             Handlers["has_global_flag"] = HasGlobalFlag;
+            Handlers["is_canal_enabled"] = IsCanalEnabled;
+            Handlers["administration_spending"] = AdminSpending;
+            Handlers["ai"] = Ai;
+            Handlers["alliance_with"] = AllianceWith;
         }
+
         /// <summary>
         /// root method to eval condition
         /// </summary>
@@ -135,6 +140,55 @@ namespace Victoria_II_Custom_Lib.EffectLogic
         private bool HasGlobalFlag(Scope scope, KeyValueNode root)
         {
             return scope.State.GlobalMetadata.GlobalFlags.Contains(root.Value);
+        }
+
+        /// <summary>
+        /// returns true if the given canal is enabled
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        private bool IsCanalEnabled(Scope scope, KeyValueNode root)
+        {
+            var canal = root.Value.AsInt();
+            return scope.State.GlobalMetadata.EnabledCanals.Contains(canal);
+        }
+
+        /// <summary>
+        /// returns true if the country's admin spending is greater than or equal to specified value
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        private bool AdminSpending(Scope scope, KeyValueNode root)
+        {
+            return scope.Country.BudgetInfo.AdminSpending >= root.Value.AsDecimal();
+        }
+
+        /// <summary>
+        /// return true if the country is the ai value specified in the value
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        private bool Ai(Scope scope, KeyValueNode root)
+        {
+            return scope.Country.IsAi == root.Value.AsBool();
+        }
+
+        private bool AllianceWith(Scope scope, KeyValueNode root)
+        {
+            var value = root.Value.ToUpperInvariant();
+            var allies = scope.Country.DiplomaticInfo.Allies;
+            switch (value)
+            {
+                case "THIS":
+                    return allies.ContainsKey(scope.This.Country.Tag);
+                case "FROM":
+                    return allies.ContainsKey(scope.Previous.Country.Tag);
+                default:
+                    return allies.ContainsKey(value);
+            }
         }
     }
 }

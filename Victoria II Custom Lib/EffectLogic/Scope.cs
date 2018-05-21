@@ -20,5 +20,10 @@ namespace Victoria_II_Custom_Lib.EffectLogic
         public Province Province { get; set; }
 
         public Scope Previous { get; set; }
+
+        /// <summary>
+        /// the this scope
+        /// </summary>
+        public Scope This { get; set; } 
     }
 }

@@ -47,7 +47,9 @@
     <Compile Include="ActionEffects\ActionEffectFactory.cs" />
     <Compile Include="ActionEffects\ActionQueue.cs" />
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Countries\BudgetInfo.cs" />
     <Compile Include="Countries\Country.cs" />
+    <Compile Include="Countries\DiplomaticInfo.cs" />
     <Compile Include="EffectLogic\Scope.cs" />
     <Compile Include="EffectLogic\TriggerGenerator.cs" />
     <Compile Include="Events\CountryEvent.cs" />
