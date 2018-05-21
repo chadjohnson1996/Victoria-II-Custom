@@ -48,6 +48,8 @@
     <Compile Include="ActionEffects\ActionQueue.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Countries\Country.cs" />
+    <Compile Include="EffectLogic\Scope.cs" />
+    <Compile Include="EffectLogic\TriggerGenerator.cs" />
     <Compile Include="Events\CountryEvent.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\EventOption.cs" />
