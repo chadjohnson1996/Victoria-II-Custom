@@ -68,6 +68,7 @@
     <Compile Include="General\Color.cs" />
     <Compile Include="General\LocalizableObject.cs" />
     <Compile Include="GlobalConfig.cs" />
+    <Compile Include="GlobalMetadata.cs" />
     <Compile Include="Goods\Good.cs" />
     <Compile Include="Goods\GoodState.cs" />
     <Compile Include="Goods\GoodTypeEnum.cs" />
@@ -85,7 +86,9 @@
     <Compile Include="Modifiers\IScope.cs" />
     <Compile Include="Modifiers\Modifier.cs" />
     <Compile Include="Modifiers\ScopeTypeEnum.cs" />
+    <Compile Include="Pops\Pop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provinces\Province.cs" />
     <Compile Include="Units\LandUnit.cs" />
     <Compile Include="Units\NavalUnit.cs" />
     <Compile Include="Units\Unit.cs" />
@@ -94,9 +97,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pops\" />
-    <Folder Include="Provinces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

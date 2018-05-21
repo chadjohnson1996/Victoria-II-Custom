@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Victoria_II_Custom_Lib.Extensions;
 
 namespace Victoria_II_Custom_Lib.EffectLogic
 {
@@ -16,7 +17,13 @@ namespace Victoria_II_Custom_Lib.EffectLogic
 
         public TriggerGenerator()
         {
-            Handlers["AND"] = AndHandler;
+            Handlers["and"] = AndHandler;
+            Handlers["or"] = OrHandler;
+            Handlers["not"] = NotHandler;
+            Handlers["year"] = YearHandler;
+            Handlers["month"] = MonthHandler;
+            Handlers["check_variable"] = CheckVariable;
+            Handlers["has_global_flag"] = HasGlobalFlag;
         }
         /// <summary>
         /// root method to eval condition
@@ -26,7 +33,7 @@ namespace Victoria_II_Custom_Lib.EffectLogic
         /// <returns></returns>
         public bool EvalCondition(Scope scope, KeyValueNode root)
         {
-            return Handlers[root.Key.ToUpperInvariant()](scope, root);
+            return Handlers[root.Key.ToLowerInvariant()](scope, root);
         }
 
         /// <summary>
@@ -46,6 +53,12 @@ namespace Victoria_II_Custom_Lib.EffectLogic
             return toReturn;
         }
 
+        /// <summary>
+        /// handles logical or
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
         private bool OrHandler(Scope scope, KeyValueNode root)
         {
             foreach (var child in root)
@@ -59,6 +72,12 @@ namespace Victoria_II_Custom_Lib.EffectLogic
             return false;
         }
 
+        /// <summary>
+        /// handles logical not
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
         private bool NotHandler(Scope scope, KeyValueNode root)
         {
             foreach (var child in root)
@@ -67,6 +86,55 @@ namespace Victoria_II_Custom_Lib.EffectLogic
             }
 
             throw new ApplicationException("A 'NOT' Expression must have a body");
+        }
+
+        /// <summary>
+        /// checks if current year is >= condition
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        private bool YearHandler(Scope scope, KeyValueNode root)
+        {
+            return scope.State.GlobalMetadata.Date.Year >= root.Value.AsInt();
+        }
+
+        /// <summary>
+        /// returns true if the current month is less than or equal to parameter month
+        /// note the month must be the string representation
+        /// (e.g. January instead of 1)
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        private bool MonthHandler(Scope scope, KeyValueNode root)
+        {
+            return scope.State.GlobalMetadata.MonthMap[root.Value] <= scope.State.GlobalMetadata.Date.Month;
+        }
+
+        /// <summary>
+        /// returns true if the variable specified in the "which" clause is set and equal to the "value"
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        private bool CheckVariable(Scope scope, KeyValueNode root)
+        {
+            var variableInfo = scope.State.GlobalMetadata.Variables;
+            var name = root["which"].Value;
+            var value = root["value"].Value.AsDecimal();
+            return variableInfo.ContainsKey(name) && variableInfo[name] == value;
+        }
+
+        /// <summary>
+        /// returns true if the specified global flag is set
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        private bool HasGlobalFlag(Scope scope, KeyValueNode root)
+        {
+            return scope.State.GlobalMetadata.GlobalFlags.Contains(root.Value);
         }
     }
 }
