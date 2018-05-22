@@ -28,6 +28,9 @@ namespace Victoria_II_Custom_Lib.EffectLogic
             Handlers["administration_spending"] = AdminSpending;
             Handlers["ai"] = Ai;
             Handlers["alliance_with"] = AllianceWith;
+            Handlers["average_militancy"] = AverageMilitancy;
+            Handlers["average_consciousness"] = AverageConciousness;
+            Handlers["badboy"] = Badboy;
         }
 
         /// <summary>
@@ -176,6 +179,12 @@ namespace Victoria_II_Custom_Lib.EffectLogic
             return scope.Country.IsAi == root.Value.AsBool();
         }
 
+        /// <summary>
+        /// return true if the country is allied with the value
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
         private bool AllianceWith(Scope scope, KeyValueNode root)
         {
             var value = root.Value.ToUpperInvariant();
@@ -189,6 +198,56 @@ namespace Victoria_II_Custom_Lib.EffectLogic
                 default:
                     return allies.ContainsKey(value);
             }
+        }
+
+        /// <summary>
+        /// returns true if the conciousness in a province is >= a value
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        private bool AverageConciousness(Scope scope, KeyValueNode root)
+        {
+            var value = root.Value.AsDecimal();
+            if (scope.Province != null)
+            {
+                return scope.Province.Consciousness >= value;
+            }
+            else
+            {
+                return scope.Country.Consciousness >= value;
+            }
+        }
+        /// <summary>
+        /// returns true if the average militancy is >= the value
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        private bool AverageMilitancy(Scope scope, KeyValueNode root)
+        {
+            var value = root.Value.AsDecimal();
+            if (scope.Province != null)
+            {
+                return scope.Province.Militancy >= value;
+            }
+            else
+            {
+                return scope.Country.Militancy >= value;
+            }
+        }
+
+        /// <summary>
+        /// returns true if the given country has more than x% of the infamy limit
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        private bool Badboy(Scope scope, KeyValueNode root)
+        {
+            var value = root.Value.AsDecimal();
+            var scopeValue = scope.Country.DiplomaticInfo.Infamy / scope.State.GlobalMetadata.InfamyLimit;
+            return scopeValue >= value;
         }
     }
 }

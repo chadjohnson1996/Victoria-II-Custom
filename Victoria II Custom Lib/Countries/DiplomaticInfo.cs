@@ -17,5 +17,7 @@ namespace Victoria_II_Custom_Lib.Countries
 
         public Country SphereLeader { get; set; }
 
+        public decimal Infamy { get; set; }
+
     }
 }

@@ -8,5 +8,8 @@ namespace Victoria_II_Custom_Lib.Provinces
 {
     public class Province
     {
+        public decimal Consciousness { get; set; }
+
+        public decimal Militancy { get; set; }
     }
 }
