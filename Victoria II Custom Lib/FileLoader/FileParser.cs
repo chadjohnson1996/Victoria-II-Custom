@@ -27,6 +27,7 @@ namespace Victoria_II_Custom_Lib
             Parsers.Add(FileParsingStateEnum.ParsingNestedValue, ProcessParsingNestedValue);
             Parsers.Add(FileParsingStateEnum.Comment, ProcessComment);
             Parsers.Add(FileParsingStateEnum.EndKey, ProcessEndKey);
+            Parsers.Add(FileParsingStateEnum.ParsingEscapedKey, ProcessParsingEscapedKey);
         }
         /// <summary>
         /// parses the key value tree of file specified at the path
@@ -87,8 +88,16 @@ namespace Victoria_II_Custom_Lib
                 currentNode = new FileParsingState();
                 if (oldNode.IncludeCurrentInNext)
                 {
-                    currentNode.State = FileParsingStateEnum.ParsingKey;
-                    currentNode.KeyBuilder.Append(currentChar);
+                    if (currentChar == '"')
+                    {
+                        currentNode.State = FileParsingStateEnum.ParsingEscapedKey;
+                    }
+                    else
+                    {
+                        currentNode.State = FileParsingStateEnum.ParsingKey;
+                        currentNode.KeyBuilder.Append(currentChar);
+                    }
+                    
                 }
 
                 i++;
@@ -136,6 +145,12 @@ namespace Victoria_II_Custom_Lib
                 return;
             }
 
+            if (current == '"')
+            {
+                toProcess.State = FileParsingStateEnum.ParsingEscapedKey;
+                return;
+            }
+
             if (!char.IsWhiteSpace(current))
             {
                 toProcess.KeyBuilder.Append(current);
@@ -143,6 +158,17 @@ namespace Victoria_II_Custom_Lib
             }
         }
 
+        private void ProcessParsingEscapedKey(FileParsingState toProcess, char current, int index)
+        {
+            if (current == '"')
+            {
+                toProcess.State = FileParsingStateEnum.EndKey;
+            }
+            else
+            {
+                toProcess.KeyBuilder.Append(current);
+            }
+        }
         /// <summary>
         /// processes parsing the key
         /// </summary>
