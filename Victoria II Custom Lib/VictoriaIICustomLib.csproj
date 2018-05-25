@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="ActionEffects\ActionEffectFactory.cs" />
     <Compile Include="ActionEffects\ActionQueue.cs" />
+    <Compile Include="Buildings\Building.cs" />
+    <Compile Include="Buildings\BuildingType.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Countries\BudgetInfo.cs" />
     <Compile Include="Countries\Country.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="LocalizationInfo\Localization.cs" />
     <Compile Include="Modifiers\IScope.cs" />
     <Compile Include="Modifiers\Modifier.cs" />
+    <Compile Include="Modifiers\PopulationModifiers.cs" />
     <Compile Include="Modifiers\ScopeTypeEnum.cs" />
     <Compile Include="Pops\Pop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
