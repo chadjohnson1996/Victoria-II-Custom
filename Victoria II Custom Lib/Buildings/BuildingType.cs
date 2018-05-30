@@ -10,6 +10,7 @@ namespace Victoria_II_Custom_Lib.Buildings
     {
         Factory,
         NavalBase,
-        Infrastructure
+        Infrastructure,
+        Fort
     }
 }

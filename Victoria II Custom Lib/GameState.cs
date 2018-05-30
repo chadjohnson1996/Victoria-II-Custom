@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Victoria_II_Custom_Lib.ActionEffects;
+using Victoria_II_Custom_Lib.Buildings;
 using Victoria_II_Custom_Lib.Countries;
 using Victoria_II_Custom_Lib.Events;
 using Victoria_II_Custom_Lib.FileLoader.Loaders;
@@ -38,6 +39,11 @@ namespace Victoria_II_Custom_Lib
         public ConcurrentDictionary<string, Country> Countries { get; private set; }
 
         /// <summary>
+        /// the buildings
+        /// </summary>
+        public ConcurrentDictionary<string, Building> Buildings { get; private set; }
+
+        /// <summary>
         /// the event store
         /// </summary>
         public EventStore EventStore { get; set; } = new EventStore();
@@ -57,6 +63,7 @@ namespace Victoria_II_Custom_Lib
             await Localization.Init();
             GoodState = new GoodState(await Loaders.GoodsLoader.Load());
             Countries = Country.GetAllCountries(this);
+            Buildings = Building.Bootstrap(this, await Loaders.BuildingLoader.Load());
         }
     }
 }

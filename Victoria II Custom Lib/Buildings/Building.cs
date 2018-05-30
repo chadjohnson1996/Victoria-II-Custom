@@ -18,6 +18,7 @@ namespace Victoria_II_Custom_Lib.Buildings
             BuildingTypeMap["factory"] = BuildingType.Factory;
             BuildingTypeMap["naval_base"] = BuildingType.NavalBase;
             BuildingTypeMap["infrastructure"] = BuildingType.Infrastructure;
+            BuildingTypeMap["fort"] = BuildingType.Fort;
         }
 
         private static ConcurrentDictionary<string, BuildingType> BuildingTypeMap { get; } = new ConcurrentDictionary<string, BuildingType>();
@@ -76,7 +77,7 @@ namespace Victoria_II_Custom_Lib.Buildings
         private Building(GameState state, KeyValueNode root) : base(root.Key)
         {
             BuildingType = BuildingTypeMap[root["type"].Value];
-            Cost = root["cost"].Value.AsInt();
+            Cost = root["cost"]?.Value?.AsInt() ?? 0;
             Time = root["time"].Value.AsInt();
             Visability = root["visability"]?.Value?.AsBool() ?? false;
             OnMap = root["onmap"]?.Value?.AsBool() ?? false;
@@ -88,7 +89,7 @@ namespace Victoria_II_Custom_Lib.Buildings
             SpawnRailwayTrack = root["spawn_railway_track"]?.Value?.AsBool() ?? false;
             NavalCapacity = root["naval_capacity"]?.Value?.AsInt() ?? 0;
             Capital = root["capital"]?.Value?.AsBool() ?? false;
-            ColonialPoints = root["colonial_points"]?.Select(x => x.Value.AsInt())?.ToList();
+            ColonialPoints = root["colonial_points"]?.Select(x => x.Key.AsInt())?.ToList();
             ColonialRange = root["colonial_range"]?.Value?.AsInt() ?? 0;
             OnePerState = root["one_per_state"]?.Value?.AsBool() ?? false;
             LocalShipBuildTime = root["local_ship_build"]?.Value?.AsDecimal() ?? 0;
@@ -111,9 +112,18 @@ namespace Victoria_II_Custom_Lib.Buildings
                 GoodCost[goodsMap[good.Key]] = good.Value.AsInt();
             }
         }
-        public static List<Building> Bootstrap(GameState state, KeyValueNode root)
+        public static ConcurrentDictionary<string, Building> Bootstrap(GameState state, KeyValueNode root)
         {
-            return root.Select(x => new Building(state, x)).ToList();
+            var result = root.Select(x => new Building(state, x)).ToList();
+
+            var toReturn = new ConcurrentDictionary<string, Building>();
+
+            foreach (var building in result)
+            {
+                toReturn[building.Name] = building;
+            }
+
+            return toReturn;
         }
     }
 }
