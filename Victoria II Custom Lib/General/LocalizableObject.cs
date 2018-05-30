@@ -21,5 +21,20 @@ namespace Victoria_II_Custom_Lib.General
         {
             Name = name;
         }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
+
+        public override bool Equals(object o)
+        {
+            if (!(o is LocalizableObject oLocalizable))
+            {
+                return false;
+            }
+
+            return oLocalizable.Name == Name;
+        }
     }
 }
